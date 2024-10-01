@@ -1,0 +1,24 @@
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   
+   <vType accel="1.0" decel="5.0" id="AggrCar" length="5.0" minGap="2.0" maxSpeed="50.0" sigma="0" color = "1,0,0" />
+   <vType accel="1.0" decel="5.0" id="Car" length="5.0" minGap="2.0" maxSpeed="50.0" sigma="0"/>
+
+   <route id="eb_left" edges="1fi 1si 4o"/>
+   <route id="eb_straight" edges="1fi 1si 2o"/>
+   <route id="eb_right" edges="1fi 1si 3o"/>
+   
+   <route id="wb_left" edges="2fi 2si 3o"/>
+   <route id="wb_straight" edges="2fi 2si 1o"/>
+   <route id="wb_right" edges="2fi 2si 4o"/>
+   
+   <route id="nb_left" edges="3fi 3si 1o"/>
+   <route id="nb_straight" edges="3fi 3si 4o"/>
+   <route id="nb_right" edges="3fi 3si 2o"/>
+   
+   <route id="sb_left" edges="4fi 4si 2o"/>
+   <route id="sb_straight" edges="4fi 4si 3o"/>
+   <route id="sb_right" edges="4fi 4si 1o"/>
+
+   <route id="warmup" edges="warmup connector 4fi 4si 3o 3fi 3si 2o 2fi 2si 1o 1fi 1si 4o"/>
+</routes>
