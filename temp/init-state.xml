@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-01 19:08:57 by Eclipse SUMO GUI Version 1.20.0
+<!-- generated on 2024-10-08 16:36:44 by Eclipse SUMO GUI Version 1.20.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,6 +13,7 @@
     </time>
 
     <processing>
+        <lanechange.duration value="0.5"/>
         <default.action-step-length value="0.1"/>
     </processing>
 
@@ -35,7 +36,7 @@
         <gui-settings-file value="sumo_config/gui.xml"/>
         <quit-on-end value="true"/>
         <start value="true"/>
-        <delay value="50"/>
+        <delay value="150"/>
     </gui_only>
 
 </configuration>

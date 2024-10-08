@@ -1,5 +1,8 @@
 import scenarioxp as sxp
 import pandas as pd
+import numpy as np
+from shapely.geometry import Polygon
+from typing import Tuple, List
 
 import constants
 import utils
@@ -43,6 +46,9 @@ class GammaCrossAI:
                                     break
         return
 
+
+    
+
 class GammaCrossScenario(sxp.Scenario):
     def __init__(self, params : pd.Series):
         traci.simulation.loadState(constants.sumo.init_state_file)
@@ -61,17 +67,38 @@ class GammaCrossScenario(sxp.Scenario):
             )
 
         self.idle_until_start_time()
-        self.add_vehicles()        
+        self.add_vehicles()
+        self.clear_polygons()
+        self.add_passenger_polygons()
 
-        # return
+        """
+        Simulation Loop
+        """
+        prev_dut_lane_id = None
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
             ai.on_step()
+
+            # Find moment of entering/exiting intersection
+            dut_lane_id = traci.vehicle.getLaneID(constants.DUT)
+            if prev_dut_lane_id is None:
+                pass
+            elif prev_dut_lane_id[0] != ":" and dut_lane_id[0] == ":":
+                self.dut_enter_intersection()
+            elif prev_dut_lane_id[0] == ":" and dut_lane_id[0] != ":":
+                self.dut_exit_intersection()
+
+            # Logic within intersection
+            if dut_lane_id[0] == ":":
+                self.dut_isin_intersection()
+        
 
             # Dut complete
             if "o" in traci.vehicle.getLaneID(constants.DUT) \
                 and traci.vehicle.getLanePosition(constants.DUT) > 20:
                 break
+
+            prev_dut_lane_id = traci.vehicle.getLaneID(constants.DUT)
             continue
         return
     
@@ -82,6 +109,77 @@ class GammaCrossScenario(sxp.Scenario):
     @property
     def params(self) -> pd.Series:
         return self._params
+
+    
+    def dut_enter_intersection(self):
+        traci.vehicle.setColor(
+            constants.DUT,
+            constants.RGBA.cyan
+        )
+        return
+
+    def dut_isin_intersection(self):
+        return
+
+    def dut_exit_intersection(self):
+        traci.vehicle.setColor(
+            constants.DUT,
+            constants.RGBA.light_blue
+        )
+        return
+
+    def add_passenger_polygons(self):
+
+        for vid in traci.vehicle.getIDList():
+            center = traci.vehicle.getPosition(vid)            
+            rotation = traci.vehicle.getAngle(vid)
+
+            # Adjust for SUMO axes
+            if vid[0] in "ns":
+                rotation += 90
+            else:
+                rotation -= 90
+
+            # Construct a polygon
+            polygon = utils.passenger_polygon(rotation, center)
+
+            # Choose the color
+            if constants.sumo.show_polygons:
+                if constants.sumo.override_polygon_color:
+                    color = constants.sumo.polygon_color
+                else:
+                    if vid == constants.DUT:
+                        color = constants.RGBA.light_blue
+                    elif traci.vehicle.getTypeID(vid) == "AggrCar":
+                        color = constants.RGBA.red
+                    else:
+                        color = constants.RGBA.yellow
+            else:
+                color = constants.RGBA.black
+
+            # Add Polygon
+            pid = vid
+            traci.polygon.add(
+                pid, 
+                list(polygon.exterior.coords),
+                color,
+                layer=5,
+                lineWidth=0.1
+            )
+
+            # Attach to a vehicle
+            traci.polygon.addDynamics(
+                pid,
+                vid,
+                rotate = True
+            )
+            continue
+        return
+
+    def clear_polygons(self):
+        for pid in traci.polygon.getIDList():
+            traci.polygon.remove(pid)
+        return
 
     def idle_until_start_time(self):
         start_time = self.params["time0"]
@@ -120,7 +218,7 @@ class GammaCrossScenario(sxp.Scenario):
         20m behind the 5th car spot in the center lane.
         """
         turn_lane_length = constants.traci.gamma_cross.turn_lane_length
-        pos = turn_lane_length - 20 - 5*7 - 2 - 20
+        pos = turn_lane_length - 20 - 2*7 - 20
         lid = "%dsi_1" % direction
         traci.vehicle.moveTo(
             constants.DUT,
@@ -144,6 +242,7 @@ class GammaCrossScenario(sxp.Scenario):
                 constants.sumo.default_view, 
                 constants.sumo.dut_zoom
             )
+        # input("hhh")
         return
 
     def add_traffic(self):
@@ -166,7 +265,7 @@ class GammaCrossScenario(sxp.Scenario):
         """
         # Prepare vehicle data
         vehicle_data = []
-        for i in range(1,5+1):
+        for i in range(1,4+1):
             for dir in directions.keys():
                 for lane in lanes.keys():
                     # Vehicle Type
@@ -220,13 +319,21 @@ class GammaCrossScenario(sxp.Scenario):
         # Add vehicles to simulation
         traci.simulationStep()
 
+        pos_offset = {
+            1 : 20,
+            2 : 20 + 7,
+            3 : 20 + 2*7 + 25 + 22,
+            4 : 20 + 2*7 + 25 + 22 + 7
+        }
+
         # Move to the correct edges
         for i in range(len(df.index)):
             s = df.iloc[i]
             
             ipos = int(s["vid"][-1])
             lane_length = constants.traci.gamma_cross.turn_lane_length
-            pos = lane_length - 20 - (ipos-1)*(5+2)
+            pos = lane_length - pos_offset[ipos]
+            # print(pos)
             traci.vehicle.moveTo(
                 s["vid"], 
                 s["lid"], 

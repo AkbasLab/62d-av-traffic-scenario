@@ -36,7 +36,7 @@ class Runner:
             fast_foward = self.random_seed() % 10000
         )
 
-        for i in range(100):
+        for i in range(constants.n_tests):
             print("Test %d" % i, end="\r")
             seq_exp.step()
             # break

@@ -101,7 +101,8 @@ class GenericClient(TraCIClient):
             "--gui-settings-file" : constants.sumo.gui_setting_file,
             "--seed" : constants.seed,
             "--default.action-step-length" : constants.sumo.action_step_length,
-            "--step-length" : constants.sumo.step_length
+            "--step-length" : constants.sumo.step_length,
+            "--lanechange.duration" : constants.sumo.lane_change_duration
         }
         if constants.sumo.start:
             config["--start"] = ""

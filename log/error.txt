@@ -1,289 +1,251 @@
-Warning: Vehicle 'sb_right4' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=42.20.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=42.20.
-Warning: Vehicle 'sb_left4' performs emergency braking on lane '4si_2' with decel=9.00, wished=5.00, severity=1.00, time=82.20.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=82.20.
-Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=82.20.
-Warning: Teleporting vehicle 'sb_left5'; collision with vehicle 'sb_left4', lane='4si_2', gap=-0.02, time=82.20 stage=move.
-Warning: Teleporting vehicle 'nb_straight5'; collision with vehicle 'nb_straight4', lane='3si_1', gap=-0.02, time=82.20 stage=move.
-Warning: Teleporting vehicle 'wb_right5'; collision with vehicle 'wb_right4', lane='2si_0', gap=-0.02, time=82.20 stage=move.
-Warning: Vehicle 'wb_right5' ends teleporting on edge '4o', time=82.20.
-Warning: Vehicle 'nb_straight5' ends teleporting on edge '4o', time=82.20.
-Warning: Vehicle 'sb_left5' ends teleporting on edge '2o', time=82.20.
-Warning: Teleporting vehicle 'nb_straight3'; collision with vehicle 'nb_right3', lane='3si_1', gap=-4.47, time=86.20 stage=events.
-Warning: Vehicle 'nb_straight3' ends teleporting on edge '4o', time=86.20.
-Warning: Vehicle 'sb_straight2' performs emergency braking on lane ':0_1_0' with decel=9.00, wished=5.00, severity=1.00, time=90.00.
-Warning: Vehicle 'eb_left5' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=144.00.
-Warning: Vehicle 'sb_straight4' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=25.20.
-Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=25.20.
-Warning: Teleporting vehicle 'sb_straight5'; collision with vehicle 'sb_straight4', lane='4si_1', gap=-0.02, time=25.20 stage=move.
-Warning: Vehicle 'sb_straight5' ends teleporting on edge '3o', time=25.20.
-Warning: Teleporting vehicle 'wb_straight3'; collision with vehicle 'wb_right2', lane='2si_1', gap=-3.29, time=31.70 stage=events.
-Warning: Vehicle 'wb_straight3' ends teleporting on edge '1o', time=31.70.
-Warning: Vehicle 'wb_left5' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=67.90.
-Warning: Vehicle 'sb_right4' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=27.20.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=27.20.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=27.20.
-Warning: Teleporting vehicle 'sb_right5'; collision with vehicle 'sb_right4', lane='4si_0', gap=-0.02, time=27.20 stage=move.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=27.20 stage=move.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=27.20.
-Warning: Vehicle 'sb_right5' ends teleporting on edge '1o', time=27.20.
-Warning: Vehicle 'nb_right1' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=28.70.
-Warning: Vehicle 'eb_straight1' performs emergency braking on lane ':0_10_0' with decel=9.00, wished=5.00, severity=1.00, time=28.70.
-Warning: Vehicle 'eb_straight3' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=29.50.
-Warning: Vehicle 'sb_straight1' performs emergency braking on lane ':0_1_0' with decel=9.00, wished=5.00, severity=1.00, time=29.60.
-Warning: Teleporting vehicle 'wb_straight1'; collision with vehicle 'wb_right2', lane='2si_1', gap=-5.87, time=30.10 stage=events.
-Warning: Vehicle 'wb_straight1' ends teleporting on edge '1o', time=30.10.
-Warning: Vehicle 'wb_left5' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=57.10.
-Warning: Vehicle 'sb_right4' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=63.20.
-Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=63.20.
-Warning: Teleporting vehicle 'sb_right5'; collision with vehicle 'sb_right4', lane='4si_0', gap=-0.02, time=63.20 stage=move.
-Warning: Teleporting vehicle 'wb_right5'; collision with vehicle 'wb_right4', lane='2si_0', gap=-0.02, time=63.20 stage=move.
-Warning: Vehicle 'wb_right5' ends teleporting on edge '4o', time=63.20.
-Warning: Vehicle 'sb_right5' ends teleporting on edge '1o', time=63.20.
-Warning: Vehicle 'wb_right2' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=66.20.
-Warning: Vehicle 'sb_right2' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=68.20.
-Warning: Teleporting vehicle 'sb_straight5'; collision with vehicle 'sb_left3', lane='4si_1', gap=-0.52, time=99.00 stage=events.
-Warning: Vehicle 'sb_left3' performs emergency stop at the end of lane '4si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=99.00.
-Warning: Vehicle 'sb_straight5' ends teleporting on edge '3o', time=99.00.
-Warning: Vehicle 'nb_right5' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=99.30.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=8.20.
-Warning: Teleporting vehicle 'eb_left5'; collision with vehicle 'eb_left4', lane='1si_2', gap=-0.02, time=8.20 stage=move.
-Warning: Vehicle 'eb_left5' ends teleporting on edge '4o', time=8.20.
-Warning: Vehicle 'nb_right1' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=9.80.
-Warning: Vehicle 'sb_right5' performs emergency stop at the end of lane '4si_1' because there is no connection to the next edge (decel=0.00, offset=0.90), time=15.30.
-Warning: Vehicle 'eb_left2' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-6.00, offset=0.31), time=46.60.
-Warning: Vehicle 'wb_left3' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
-Warning: Vehicle 'eb_right4' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=54.30.
-Warning: Vehicle 'eb_right5' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=0.90), time=56.90.
-Warning: Vehicle 'sb_left4' performs emergency braking on lane '4si_2' with decel=9.00, wished=5.00, severity=1.00, time=16.20.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=16.20.
-Warning: Teleporting vehicle 'sb_left5'; collision with vehicle 'sb_left4', lane='4si_2', gap=-0.02, time=16.20 stage=move.
-Warning: Vehicle 'sb_left5' ends teleporting on edge '2o', time=16.20.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=16.30.
-Warning: Teleporting vehicle 'nb_straight5'; collision with vehicle 'nb_straight4', lane='3si_1', gap=-0.02, time=16.30 stage=move.
-Warning: Vehicle 'nb_straight5' ends teleporting on edge '4o', time=16.30.
-Warning: Teleporting vehicle 'eb_straight2'; collision with vehicle 'eb_left2', lane='1si_1', gap=-1.34, time=18.90 stage=events.
-Warning: Vehicle 'eb_straight2' ends teleporting on edge '2o', time=18.90.
-Warning: Vehicle 'eb_right1' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=22.10.
-Warning: Teleporting vehicle 'eb_right3'; collision with vehicle 'eb_straight4', lane='1si_0', gap=-1.14, time=24.10 stage=events.
-Warning: Vehicle 'eb_right3' ends teleporting on edge '3o', time=24.10.
-Warning: Teleporting vehicle 'eb_right4'; collision with vehicle 'eb_straight5', lane='1si_0', gap=-3.20, time=27.30 stage=events.
-Warning: Vehicle 'eb_right4' ends teleporting on edge '3o', time=27.30.
-Warning: Teleporting vehicle 'eb_straight5'; junction collision with vehicle 'eb_straight4', lane=':0_10_0', gap=-7.00, time=27.40 stage=move.
-Warning: Vehicle 'eb_straight5' ends teleporting on edge '2o', time=27.40.
-Warning: Teleporting vehicle 'wb_straight1'; collision with vehicle 'wb_right2', lane='2si_1', gap=-6.01, time=45.10 stage=events.
-Warning: Vehicle 'wb_straight1' ends teleporting on edge '1o', time=45.10.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=40.30.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=40.30.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=40.30 stage=move.
-Warning: Teleporting vehicle 'eb_left5'; collision with vehicle 'eb_left4', lane='1si_2', gap=-0.02, time=40.30 stage=move.
-Warning: Vehicle 'eb_left5' ends teleporting on edge '4o', time=40.30.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=40.30.
-Warning: Vehicle 'eb_left3' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-0.00, offset=2.16), time=61.90.
-Warning: Teleporting vehicle 'eb_straight3'; collision with vehicle 'eb_left3', lane='1si_1', gap=-0.26, time=61.90 stage=move.
-Warning: Vehicle 'eb_straight3' ends teleporting on edge '2o', time=61.90.
-Warning: Teleporting vehicle 'eb_left3'; junction collision with vehicle 'eb_left1', lane=':0_15_0', gap=-8.82, time=62.00 stage=move.
-Warning: Vehicle 'eb_left3' ends teleporting on edge '4o', time=62.00.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=43.30.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=43.30 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=43.30.
-Warning: Vehicle 'wb_left4' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=52.90.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=29.20.
-Warning: Vehicle 'eb_right4' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=29.20.
-Warning: Teleporting vehicle 'eb_right5'; collision with vehicle 'eb_right4', lane='1si_0', gap=-0.02, time=29.20 stage=move.
-Warning: Vehicle 'eb_right5' ends teleporting on edge '3o', time=29.20.
-Warning: Teleporting vehicle 'nb_left4'; collision with vehicle 'nb_straight3', lane='3si_2', gap=-3.13, time=39.00 stage=events.
-Warning: Vehicle 'nb_left4' ends teleporting on edge '1o', time=39.00.
-Warning: Vehicle 'nb_left4' performs emergency braking on lane '3si_2' with decel=9.00, wished=5.00, severity=1.00, time=75.20.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=75.20.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=75.20.
-Warning: Teleporting vehicle 'nb_left5'; collision with vehicle 'nb_left4', lane='3si_2', gap=-0.02, time=75.20 stage=move.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=75.20 stage=move.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=75.20 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=75.20.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=75.20.
-Warning: Vehicle 'nb_left5' ends teleporting on edge '1o', time=75.20.
-Warning: Vehicle 'eb_right4' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=75.30.
-Warning: Vehicle 'nb_right2' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=77.00.
-Warning: Vehicle 'nb_left1' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=77.00.
-Warning: Vehicle 'sb_right2' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=77.50.
-Warning: Vehicle 'eb_straight1' performs emergency braking on lane ':0_10_0' with decel=9.00, wished=5.00, severity=1.00, time=77.50.
-Warning: Vehicle 'eb_left1' performs emergency braking on lane ':0_11_0' with decel=9.00, wished=5.00, severity=1.00, time=77.50.
-Warning: Vehicle 'sb_left2' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=89.70.
-Warning: Teleporting vehicle 'eb_straight3'; collision with vehicle 'eb_right2', lane='1si_1', gap=-6.30, time=135.80 stage=events.
-Warning: Vehicle 'eb_right2' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-1.17, offset=0.02), time=135.80.
-Warning: Vehicle 'eb_straight3' ends teleporting on edge '2o', time=135.80.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=56.20.
-Warning: Vehicle 'eb_right4' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=56.20.
-Warning: Teleporting vehicle 'eb_right5'; collision with vehicle 'eb_right4', lane='1si_0', gap=-0.02, time=56.20 stage=move.
-Warning: Vehicle 'eb_right5' ends teleporting on edge '3o', time=56.20.
-Warning: Vehicle 'sb_right1' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=60.60.
-Warning: Vehicle 'eb_left3' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-0.30, offset=4.95), time=66.20.
-Warning: Teleporting vehicle 'eb_straight5'; collision with vehicle 'eb_left3', lane='1si_1', gap=-1.29, time=66.20 stage=move.
-Warning: Vehicle 'eb_straight5' ends teleporting on edge '2o', time=66.20.
-Warning: Vehicle 'nb_right1' performs emergency braking on lane ':0_6_0' with decel=9.00, wished=5.00, severity=1.00, time=23.90.
-Warning: Vehicle 'sb_straight3' performs emergency stop at the end of lane '4si_0' because there is no connection to the next edge (decel=0.00, offset=0.90), time=28.50.
-Warning: Vehicle 'sb_right3' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=28.50.
-Warning: Teleporting vehicle 'sb_right3'; collision with vehicle 'sb_straight3', lane='4si_0', gap=-1.02, time=28.50 stage=move.
-Warning: Vehicle 'sb_right3' ends teleporting on edge '1o', time=28.50.
-Warning: Vehicle 'nb_left2' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=37.80.
-Warning: Vehicle 'eb_left2' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-6.17, offset=0.32), time=46.60.
-Warning: Vehicle 'sb_right4' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=7.20.
-Warning: Teleporting vehicle 'sb_right5'; collision with vehicle 'sb_right4', lane='4si_0', gap=-0.02, time=7.20 stage=move.
-Warning: Vehicle 'sb_right5' ends teleporting on edge '1o', time=7.20.
-Warning: Vehicle 'sb_right1' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=8.90.
-Warning: Vehicle 'sb_straight1' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=9.40.
-Warning: Vehicle 'wb_straight5' performs emergency stop at the end of lane '2si_2' because there is no connection to the next edge (decel=0.00, offset=0.90), time=12.60.
-Warning: Vehicle 'nb_left4' performs emergency stop at the end of lane '3si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=14.70.
-Warning: Teleporting vehicle 'nb_straight5'; collision with vehicle 'nb_left4', lane='3si_1', gap=-1.56, time=14.70 stage=move.
-Warning: Vehicle 'nb_straight5' ends teleporting on edge '4o', time=14.70.
-Warning: Vehicle 'nb_left4' performs emergency braking on lane ':0_14_0' with decel=9.00, wished=5.00, severity=1.00, time=32.50.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Teleporting vehicle 'nb_straight5'; collision with vehicle 'nb_straight4', lane='3si_1', gap=-0.02, time=28.20 stage=move.
-Warning: Teleporting vehicle 'wb_right5'; collision with vehicle 'wb_right4', lane='2si_0', gap=-0.02, time=28.20 stage=move.
-Warning: Vehicle 'wb_right5' ends teleporting on edge '4o', time=28.20.
-Warning: Vehicle 'nb_straight5' ends teleporting on edge '4o', time=28.20.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=28.30.
-Warning: Vehicle 'eb_straight4' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=28.30.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=28.30 stage=move.
-Warning: Teleporting vehicle 'eb_straight5'; collision with vehicle 'eb_straight4', lane='1si_1', gap=-0.02, time=28.30 stage=move.
-Warning: Vehicle 'eb_straight5' ends teleporting on edge '2o', time=28.30.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=28.30.
-Warning: Vehicle 'nb_right1' performs emergency braking on lane ':0_6_0' with decel=9.00, wished=5.00, severity=1.00, time=30.80.
-Warning: Teleporting vehicle 'eb_straight1'; collision with vehicle 'eb_left2', lane='1si_1', gap=-5.59, time=32.00 stage=events.
-Warning: Vehicle 'eb_straight1' ends teleporting on edge '2o', time=32.00.
-Warning: Vehicle 'nb_straight1' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=32.20.
-Warning: Teleporting vehicle 'nb_right2'; collision with vehicle 'nb_straight2', lane='3si_0', gap=-5.55, time=35.20 stage=events.
-Warning: Vehicle 'nb_straight2' performs emergency stop at the end of lane '3si_0' because there is no connection to the next edge (decel=0.00, offset=0.90), time=35.20.
-Warning: Vehicle 'nb_right2' ends teleporting on edge '2o', time=35.20.
-Warning: Teleporting vehicle 'wb_right2'; collision with vehicle 'wb_straight5', lane='2si_0', gap=-4.20, time=49.50 stage=events.
-Warning: Vehicle 'wb_straight5' performs emergency stop at the end of lane '2si_0' because there is no connection to the next edge (decel=-0.82, offset=0.90), time=49.50.
-Warning: Vehicle 'wb_right2' ends teleporting on edge '4o', time=49.50.
-Warning: Vehicle 'eb_left5' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-0.00, offset=2.16), time=67.60.
-Warning: Teleporting vehicle 'eb_straight3'; collision with vehicle 'eb_left5', lane='1si_1', gap=-0.26, time=67.60 stage=move.
-Warning: Vehicle 'eb_straight3' ends teleporting on edge '2o', time=67.60.
-Warning: Teleporting vehicle 'eb_left5'; junction collision with vehicle 'eb_left1', lane=':0_15_0', gap=-8.82, time=67.70 stage=move.
-Warning: Vehicle 'eb_left5' ends teleporting on edge '4o', time=67.70.
-Warning: Vehicle 'sb_left4' performs emergency braking on lane '4si_2' with decel=9.00, wished=5.00, severity=1.00, time=30.20.
-Warning: Vehicle 'eb_left4' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=30.20.
-Warning: Vehicle 'nb_left4' performs emergency braking on lane '3si_2' with decel=9.00, wished=5.00, severity=1.00, time=30.30.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=30.30.
-Warning: Teleporting vehicle 'nb_left5'; collision with vehicle 'nb_left4', lane='3si_2', gap=-0.02, time=30.30 stage=move.
-Warning: Vehicle 'nb_left5' ends teleporting on edge '1o', time=30.30.
-Warning: Vehicle 'eb_right1' performs emergency braking on lane ':0_9_0' with decel=9.00, wished=5.00, severity=1.00, time=33.30.
-Warning: Vehicle 'nb_left4' performs emergency braking on lane '3si_2' with decel=9.00, wished=5.00, severity=1.00, time=3.20.
-Warning: Vehicle 'wb_left4' performs emergency braking on lane '2si_2' with decel=9.00, wished=5.00, severity=1.00, time=3.20.
-Warning: Teleporting vehicle 'nb_left5'; collision with vehicle 'nb_left4', lane='3si_2', gap=-0.02, time=3.20 stage=move.
-Warning: Teleporting vehicle 'wb_left5'; collision with vehicle 'wb_left4', lane='2si_2', gap=-0.02, time=3.20 stage=move.
-Warning: Vehicle 'wb_left5' ends teleporting on edge '3o', time=3.20.
-Warning: Vehicle 'nb_left5' ends teleporting on edge '1o', time=3.20.
-Warning: Teleporting vehicle 'eb_left1'; collision with vehicle 'eb_straight4', lane='1si_2', gap=-5.96, time=8.30 stage=events.
-Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=8.30.
+Warning: Teleporting vehicle 'eb_straight4'; collision with vehicle 'dut', lane='1si_1', gap=-0.52', latGap=-1.80, time=54.00 stage=events.
 Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
-Warning: Vehicle 'wb_right5' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=54.30.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=4.20.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=4.20 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=4.20.
-Warning: Vehicle 'nb_left4' performs emergency stop at the end of lane '3si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=12.20.
-Warning: Vehicle 'eb_straight2' performs emergency stop at the end of lane '1si_0' because there is no connection to the next edge (decel=-6.17, offset=0.32), time=46.60.
-Warning: Teleporting vehicle 'eb_straight2'; junction collision with vehicle 'eb_straight1', lane=':0_10_0', gap=-14.68, time=46.70 stage=move.
-Warning: Vehicle 'eb_straight2' ends teleporting on edge '2o', time=46.70.
-Warning: Vehicle 'eb_left2' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=48.00.
-Warning: Vehicle 'eb_left2' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-10.04, offset=2.21), time=48.00.
-Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'eb_left2', lane=':0_11_0', gap=-1.06, time=48.10 stage=move.
-Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=48.10.
-Warning: Vehicle 'eb_left5' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=58.60.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Vehicle 'wb_left4' performs emergency braking on lane '2si_2' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Vehicle 'eb_right4' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=28.20.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=28.20 stage=move.
-Warning: Teleporting vehicle 'wb_left5'; collision with vehicle 'wb_left4', lane='2si_2', gap=-0.02, time=28.20 stage=move.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=28.20 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=28.20.
-Warning: Vehicle 'wb_left5' ends teleporting on edge '3o', time=28.20.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=28.20.
-Warning: Teleporting vehicle 'wb_straight1'; collision with vehicle 'wb_left2', lane='2si_1', gap=-1.11, time=9.00 stage=events.
-Warning: Vehicle 'wb_straight1' ends teleporting on edge '1o', time=9.00.
-Warning: Vehicle 'nb_left1' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=9.10.
-Warning: Teleporting vehicle 'wb_straight2'; collision with vehicle 'wb_left3', lane='2si_1', gap=-5.78, time=12.60 stage=events.
-Warning: Vehicle 'wb_straight2' ends teleporting on edge '1o', time=12.60.
-Warning: Teleporting vehicle 'wb_left3'; junction collision with vehicle 'wb_left2', lane=':0_5_0', gap=-6.84, time=12.70 stage=move.
-Warning: Vehicle 'wb_left3' ends teleporting on edge '3o', time=12.70.
-Warning: Vehicle 'nb_left2' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=13.00.
-Warning: Teleporting vehicle 'wb_straight3'; collision with vehicle 'wb_left4', lane='2si_1', gap=-6.91, time=37.00 stage=events.
-Warning: Vehicle 'wb_straight3' ends teleporting on edge '1o', time=37.00.
-Warning: Teleporting vehicle 'eb_straight4'; collision with vehicle 'eb_left4', lane='1si_1', gap=-0.52, time=54.00 stage=events.
-Warning: Vehicle 'eb_left4' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-0.00, offset=2.16), time=54.00.
 Warning: Vehicle 'eb_straight4' ends teleporting on edge '2o', time=54.00.
-Warning: Teleporting vehicle 'eb_left4'; junction collision with vehicle 'eb_left1', lane=':0_15_0', gap=-8.75, time=54.10 stage=move.
-Warning: Vehicle 'eb_left4' ends teleporting on edge '4o', time=54.10.
-Warning: Vehicle 'sb_straight4' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=84.20.
-Warning: Teleporting vehicle 'sb_straight5'; collision with vehicle 'sb_straight4', lane='4si_1', gap=-0.02, time=84.20 stage=move.
-Warning: Vehicle 'sb_straight5' ends teleporting on edge '3o', time=84.20.
-Warning: Vehicle 'eb_straight4' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=84.30.
-Warning: Teleporting vehicle 'eb_straight5'; collision with vehicle 'eb_straight4', lane='1si_1', gap=-0.02, time=84.30 stage=move.
-Warning: Vehicle 'eb_straight5' ends teleporting on edge '2o', time=84.30.
-Warning: Vehicle 'sb_left1' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=86.80.
-Warning: Vehicle 'wb_left2' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=87.20.
-Warning: Teleporting vehicle 'eb_left4'; collision with vehicle 'eb_straight2', lane='1si_2', gap=-1.12, time=89.30 stage=events.
-Warning: Vehicle 'eb_left4' ends teleporting on edge '4o', time=89.30.
-Warning: Vehicle 'eb_straight2' performs emergency braking on lane ':0_10_0' with decel=9.00, wished=5.00, severity=1.00, time=113.10.
-Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=19.20.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=19.20.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=19.20.
-Warning: Vehicle 'eb_straight4' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=19.20.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=19.20 stage=move.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=19.20 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=19.20.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=19.20.
-Warning: Vehicle 'sb_right4' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=19.30.
-Warning: Vehicle 'wb_straight1' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=20.50.
-Warning: Teleporting vehicle 'wb_left4'; collision with vehicle 'wb_straight3', lane='2si_2', gap=-5.57, time=23.20 stage=events.
-Warning: Vehicle 'wb_left4' ends teleporting on edge '3o', time=23.20.
-Warning: Teleporting vehicle 'wb_straight3'; junction collision with vehicle 'wb_straight1', lane=':0_4_0', gap=-6.68, time=23.30 stage=move.
-Warning: Vehicle 'wb_straight3' ends teleporting on edge '1o', time=23.30.
-Warning: Vehicle 'sb_left4' performs emergency stop at the end of lane '4si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=30.90.
-Warning: Teleporting vehicle 'sb_straight3'; collision with vehicle 'sb_left4', lane='4si_1', gap=-1.13, time=30.90 stage=move.
-Warning: Vehicle 'sb_straight3' ends teleporting on edge '3o', time=30.90.
-Warning: Vehicle 'sb_left4' performs emergency braking on lane '4si_2' with decel=9.00, wished=5.00, severity=1.00, time=55.20.
-Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=55.20.
-Warning: Vehicle 'eb_straight4' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=55.20.
-Warning: Teleporting vehicle 'sb_left5'; collision with vehicle 'sb_left4', lane='4si_2', gap=-0.02, time=55.20 stage=move.
-Warning: Teleporting vehicle 'nb_right5'; collision with vehicle 'nb_right4', lane='3si_0', gap=-0.02, time=55.20 stage=move.
-Warning: Teleporting vehicle 'eb_straight5'; collision with vehicle 'eb_straight4', lane='1si_1', gap=-0.02, time=55.20 stage=move.
-Warning: Vehicle 'eb_straight5' ends teleporting on edge '2o', time=55.20.
-Warning: Vehicle 'nb_right5' ends teleporting on edge '2o', time=55.20.
-Warning: Vehicle 'sb_left5' ends teleporting on edge '2o', time=55.20.
-Warning: Vehicle 'sb_straight1' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=57.50.
-Warning: Teleporting vehicle 'sb_straight1'; collision with vehicle 'sb_left2', lane='4si_1', gap=-6.59, time=58.20 stage=events.
-Warning: Vehicle 'sb_straight1' ends teleporting on edge '3o', time=58.20.
-Warning: Teleporting vehicle 'wb_right3'; collision with vehicle 'wb_straight4', lane='2si_0', gap=-0.06, time=68.30 stage=events.
-Warning: Vehicle 'wb_straight4' performs emergency stop at the end of lane '2si_0' because there is no connection to the next edge (decel=-0.64, offset=0.91), time=68.30.
-Warning: Vehicle 'wb_right3' ends teleporting on edge '4o', time=68.30.
-Warning: Teleporting vehicle 'wb_straight4'; junction collision with vehicle 'wb_straight2', lane=':0_4_0', gap=-15.89, time=68.40 stage=move.
-Warning: Vehicle 'wb_straight4' ends teleporting on edge '1o', time=68.40.
-Warning: Vehicle 'nb_left4' performs emergency braking on lane '3si_2' with decel=9.00, wished=5.00, severity=1.00, time=45.20.
-Warning: Teleporting vehicle 'nb_left5'; collision with vehicle 'nb_left4', lane='3si_2', gap=-0.02, time=45.20 stage=move.
-Warning: Vehicle 'nb_left5' ends teleporting on edge '1o', time=45.20.
-Warning: Vehicle 'wb_left4' performs emergency braking on lane '2si_2' with decel=9.00, wished=5.00, severity=1.00, time=45.30.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=45.30.
-Warning: Teleporting vehicle 'wb_left5'; collision with vehicle 'wb_left4', lane='2si_2', gap=-0.02, time=45.30 stage=move.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=45.30 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=45.30.
-Warning: Vehicle 'wb_left5' ends teleporting on edge '3o', time=45.30.
-Warning: Teleporting vehicle 'nb_left3'; collision with vehicle 'nb_straight2', lane='3si_2', gap=-5.96, time=51.20 stage=events.
-Warning: Vehicle 'nb_left3' ends teleporting on edge '1o', time=51.20.
-Warning: Teleporting vehicle 'sb_left1'; collision with vehicle 'sb_straight4', lane='4si_2', gap=-6.00, time=51.30 stage=events.
-Warning: Vehicle 'sb_left1' ends teleporting on edge '2o', time=51.30.
-Warning: Vehicle 'wb_right5' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=51.40.
-Warning: Teleporting vehicle 'sb_straight4'; junction collision with vehicle 'sb_straight2', lane=':0_1_0', gap=-1.88, time=51.40 stage=move.
-Warning: Vehicle 'sb_straight4' ends teleporting on edge '3o', time=51.40.
-Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=47.20.
-Warning: Teleporting vehicle 'wb_straight5'; collision with vehicle 'wb_straight4', lane='2si_1', gap=-0.02, time=47.20 stage=move.
-Warning: Vehicle 'wb_straight5' ends teleporting on edge '1o', time=47.20.
-Warning: Vehicle 'eb_left4' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=58.20.
-Warning: Teleporting vehicle 'sb_straight2'; collision with vehicle 'sb_right3', lane='4si_1', gap=-5.67, time=68.90 stage=events.
-Warning: Vehicle 'sb_straight2' ends teleporting on edge '3o', time=68.90.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=54.10 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=54.10.
+Warning: Teleporting vehicle 'nb_right3'; collision with vehicle 'nb_straight2', lane='3si_1', gap=-6.78', latGap=-1.80, time=67.50 stage=events.
+Warning: Vehicle 'nb_right3' ends teleporting on edge '2o', time=67.50.
+Warning: Teleporting vehicle 'sb_straight2'; collision with vehicle 'sb_left2', lane='4si_1', gap=-5.95', latGap=-1.80, time=82.30 stage=events.
+Warning: Vehicle 'sb_straight2' ends teleporting on edge '3o', time=82.30.
+Warning: Vehicle 'eb_left1' performs emergency braking on lane ':0_11_0' with decel=9.00, wished=5.00, severity=1.00, time=82.50.
+Warning: Teleporting vehicle 'eb_straight4'; collision with vehicle 'dut', lane='1si_2', gap=-5.84', latGap=-1.80, time=87.60 stage=events.
+Warning: Vehicle 'eb_straight4' ends teleporting on edge '2o', time=87.60.
+Warning: Vehicle 'eb_straight4' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=87.70.
+Warning: Vehicle 'nb_right3' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=87.80.
+Warning: Vehicle 'nb_left1' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=90.50.
+Warning: Vehicle 'nb_right4' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=93.40.
+Warning: Vehicle 'nb_left1' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=23.20.
+Warning: Vehicle 'wb_left1' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=18.90.
+Warning: Vehicle 'wb_left1' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=20.30.
+Warning: Vehicle 'nb_straight1' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=20.70.
+Warning: Teleporting vehicle 'wb_right3'; collision with vehicle 'wb_straight2', lane='2si_0', gap=-6.30', latGap=-1.80, time=45.80 stage=events.
+Warning: Vehicle 'wb_straight2' performs emergency stop at the end of lane '2si_0' because there is no connection to the next edge (decel=-1.17, offset=0.02), time=45.80.
+Warning: Vehicle 'wb_right3' ends teleporting on edge '4o', time=45.80.
+Warning: Teleporting vehicle 'wb_straight1'; collision with vehicle 'wb_left2', lane='2si_1', gap=-1.28', latGap=-1.80, time=16.50 stage=events.
+Warning: Vehicle 'wb_straight1' ends teleporting on edge '1o', time=16.50.
+Warning: Vehicle 'wb_straight2' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=63.30.
+Warning: Vehicle 'wb_left3' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=74.10.
+Warning: Teleporting vehicle 'wb_left3'; collision with vehicle 'wb_straight3', lane='2si_1', gap=-5.89', latGap=-1.80, time=74.10 stage=move.
+Warning: Vehicle 'wb_left3' ends teleporting on edge '3o', time=74.10.
+Warning: Vehicle 'wb_left3' performs emergency braking on lane '2si_2' with decel=9.00, wished=5.00, severity=1.00, time=74.20.
+Warning: Teleporting vehicle 'wb_left1'; junction collision with vehicle 'wb_left3', lane=':0_5_0', gap=-3.75', latGap=-1.80, time=74.20 stage=move.
+Warning: Vehicle 'wb_left1' ends teleporting on edge '3o', time=74.20.
+Warning: Teleporting vehicle 'sb_left3'; collision with vehicle 'sb_straight2', lane='4si_1', gap=-6.85', latGap=-1.80, time=82.00 stage=events.
+Warning: Vehicle 'sb_left3' ends teleporting on edge '2o', time=82.00.
+Warning: Vehicle 'sb_left3' performs emergency braking on lane '4si_2' with decel=9.00, wished=5.00, severity=1.00, time=82.10.
+Warning: Teleporting vehicle 'sb_left1'; junction collision with vehicle 'sb_left3', lane=':0_12_0', gap=-6.00', latGap=-1.80, time=82.10 stage=move.
+Warning: Vehicle 'sb_left1' ends teleporting on edge '2o', time=82.10.
+Warning: Vehicle 'sb_left1' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=91.10.
+Warning: Teleporting vehicle 'eb_straight1'; collision with vehicle 'eb_right2', lane='1si_1', gap=-3.74', latGap=-1.80, time=93.90 stage=events.
+Warning: Vehicle 'eb_straight1' ends teleporting on edge '2o', time=93.90.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=144.00.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=144.10 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=144.10.
+Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=144.30.
+Warning: Vehicle 'sb_straight3' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=25.20.
+Warning: Vehicle 'wb_right3' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=25.20.
+Warning: Vehicle 'eb_left1' performs emergency braking on lane ':0_11_0' with decel=9.00, wished=5.00, severity=1.00, time=47.00.
+Warning: Teleporting vehicle 'eb_right1'; collision with vehicle 'eb_straight2', lane='1si_0', gap=-4.78', latGap=-1.80, time=47.20 stage=events.
+Warning: Vehicle 'eb_straight2' performs emergency stop at the end of lane '1si_0' because there is no connection to the next edge (decel=-0.85, offset=0.89), time=47.20.
+Warning: Vehicle 'eb_right1' ends teleporting on edge '3o', time=47.20.
+Warning: Teleporting vehicle 'eb_straight3'; collision with vehicle 'dut', lane='1si_1', gap=-2.74', latGap=-1.80, time=50.30 stage=events.
+Warning: Teleporting vehicle 'dut'; collision with vehicle 'eb_straight1', lane='1si_1', gap=-3.13', latGap=-1.80, time=50.30 stage=events.
+Warning: Vehicle 'dut' ends teleporting on edge '4o', time=50.30.
+Warning: Vehicle 'eb_straight3' ends teleporting on edge '2o', time=50.30.
+Warning: Teleporting vehicle 'eb_left1'; collision with vehicle 'dut', lane='1si_2', gap=-5.13', latGap=-1.80, time=50.40 stage=events.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=50.40.
+Warning: Teleporting vehicle 'wb_right3'; collision with vehicle 'wb_straight3', lane='2si_0', gap=-0.32', latGap=-1.80, time=83.30 stage=events.
+Warning: Vehicle 'wb_straight3' performs emergency stop at the end of lane '2si_0' because there is no connection to the next edge (decel=0.00, offset=0.90), time=83.30.
+Warning: Vehicle 'wb_right3' ends teleporting on edge '4o', time=83.30.
+Warning: Vehicle 'sb_left3' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=96.70.
+Warning: Vehicle 'nb_right1' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=32.80.
+Warning: Teleporting vehicle 'sb_straight2'; collision with vehicle 'sb_left3', lane='4si_1', gap=-1.47', latGap=-1.80, time=40.30 stage=events.
+Warning: Teleporting vehicle 'sb_left3'; collision with vehicle 'sb_straight1', lane='4si_1', gap=-4.95', latGap=-1.80, time=40.30 stage=events.
+Warning: Vehicle 'sb_straight2' ends teleporting on edge '3o', time=40.30.
+Warning: Vehicle 'sb_left3' ends teleporting on edge '2o', time=40.30.
+Warning: Vehicle 'sb_left3' performs emergency braking on lane '4si_2' with decel=9.00, wished=5.00, severity=1.00, time=40.40.
+Warning: Teleporting vehicle 'sb_left1'; junction collision with vehicle 'sb_left3', lane=':0_2_0', gap=-3.72', latGap=-1.80, time=40.40 stage=move.
+Warning: Vehicle 'sb_left1' ends teleporting on edge '2o', time=40.40.
+Warning: Vehicle 'wb_left3' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=44.30.
+Warning: Teleporting vehicle 'sb_left4'; collision with vehicle 'sb_straight4', lane='4si_2', gap=-5.72', latGap=-1.80, time=45.30 stage=events.
+Warning: Vehicle 'sb_left4' ends teleporting on edge '2o', time=45.30.
+Warning: Teleporting vehicle 'sb_straight4'; junction collision with vehicle 'sb_straight1', lane=':0_1_0', gap=-3.61', latGap=-1.80, time=45.40 stage=move.
+Warning: Vehicle 'sb_straight4' ends teleporting on edge '3o', time=45.40.
+Warning: Teleporting vehicle 'eb_straight3'; collision with vehicle 'dut', lane='1si_1', gap=-6.24', latGap=-1.80, time=45.90 stage=events.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-1.60, offset=0.04), time=45.90.
+Warning: Vehicle 'eb_straight3' ends teleporting on edge '2o', time=45.90.
+Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=47.80.
+Warning: Vehicle 'wb_left1' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=83.30.
+Warning: Vehicle 'nb_left2' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=83.80.
+Warning: Vehicle 'sb_straight2' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=84.30.
+Warning: Vehicle 'sb_straight2' performs emergency braking on lane ':0_1_0' with decel=9.00, wished=5.00, severity=1.00, time=90.00.
+Warning: Teleporting vehicle 'nb_straight1'; collision with vehicle 'nb_right2', lane='3si_1', gap=-0.67', latGap=-1.80, time=46.10 stage=events.
+Warning: Vehicle 'nb_straight1' ends teleporting on edge '4o', time=46.10.
+Warning: Vehicle 'eb_straight2' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=20.60.
+Warning: Vehicle 'sb_right2' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=21.20.
+Warning: Teleporting vehicle 'sb_straight4'; junction collision with vehicle 'sb_straight2', lane=':0_1_0', gap=-0.82', latGap=-1.80, time=35.60 stage=move.
+Warning: Vehicle 'sb_straight4' ends teleporting on edge '3o', time=35.60.
+Warning: Vehicle 'sb_left2' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=37.30.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=54.10 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=54.10.
+Warning: Vehicle 'nb_straight2' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=69.80.
+Warning: Teleporting vehicle 'sb_right1'; collision with vehicle 'sb_straight2', lane='4si_0', gap=-5.28', latGap=-1.80, time=70.90 stage=events.
+Warning: Vehicle 'sb_right1' ends teleporting on edge '1o', time=70.90.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=78.30.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=78.40 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=78.40.
+Warning: Teleporting vehicle 'nb_straight4'; collision with vehicle 'nb_left3', lane='3si_1', gap=-6.91', latGap=-1.80, time=84.50 stage=events.
+Warning: Vehicle 'nb_straight4' ends teleporting on edge '4o', time=84.50.
+Warning: Vehicle 'nb_left2' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=59.60.
+Warning: Vehicle 'sb_right1' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=10.60.
+Warning: Vehicle 'nb_straight4' performs emergency stop at the end of lane '3si_0' because there is no connection to the next edge (decel=0.00, offset=0.90), time=20.40.
+Warning: Vehicle 'sb_straight4' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=12.80.
+Warning: Teleporting vehicle 'nb_left3'; collision with vehicle 'nb_straight4', lane='3si_2', gap=-1.16', latGap=-1.80, time=38.10 stage=events.
+Warning: Teleporting vehicle 'nb_straight4'; collision with vehicle 'nb_left2', lane='3si_2', gap=-5.84', latGap=-1.80, time=38.10 stage=events.
+Warning: Vehicle 'nb_left3' ends teleporting on edge '1o', time=38.10.
+Warning: Vehicle 'nb_straight4' ends teleporting on edge '4o', time=38.10.
+Warning: Vehicle 'nb_straight4' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=38.20.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=55.80.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=55.90 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=55.90.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=53.80.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=53.90 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=53.90.
+Warning: Vehicle 'wb_right3' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=54.10.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=61.30.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=61.40 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=61.40.
+Warning: Vehicle 'sb_left1' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=70.10.
+Warning: Vehicle 'wb_straight4' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=73.40.
+Warning: Teleporting vehicle 'nb_right2'; collision with vehicle 'nb_straight4', lane='3si_0', gap=-4.40', latGap=-1.80, time=73.90 stage=events.
+Warning: Vehicle 'nb_right2' ends teleporting on edge '2o', time=73.90.
+Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=74.10.
+Warning: Teleporting vehicle 'eb_straight3'; collision with vehicle 'dut', lane='1si_1', gap=-3.69', latGap=-1.80, time=79.80 stage=events.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=79.80.
+Warning: Vehicle 'eb_straight3' ends teleporting on edge '2o', time=79.80.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=79.90 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=79.90.
+Warning: Vehicle 'wb_right2' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=-0.92, offset=0.90), time=52.40.
+Warning: Vehicle 'eb_straight3' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=55.80.
+Warning: Teleporting vehicle 'eb_straight4'; collision with vehicle 'dut', lane='1si_1', gap=-4.41', latGap=-1.80, time=59.10 stage=events.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=59.10.
+Warning: Vehicle 'eb_straight4' ends teleporting on edge '2o', time=59.10.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=59.20 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=59.20.
+Warning: Vehicle 'eb_left1' performs emergency braking on lane ':0_11_0' with decel=9.00, wished=5.00, severity=1.00, time=88.70.
+Warning: Vehicle 'sb_left1' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=89.00.
+Warning: Vehicle 'sb_left3' performs emergency stop at the end of lane '4si_1' because there is no connection to the next edge (decel=-0.18, offset=2.16), time=96.80.
+Warning: Teleporting vehicle 'sb_left1'; junction collision with vehicle 'sb_left3', lane=':0_12_0', gap=-5.72', latGap=-1.80, time=96.90 stage=move.
+Warning: Vehicle 'sb_left1' ends teleporting on edge '2o', time=96.90.
+Warning: Teleporting vehicle 'eb_right1'; collision with vehicle 'eb_straight2', lane='1si_0', gap=-5.99', latGap=-1.80, time=19.90 stage=events.
+Warning: Vehicle 'eb_right1' ends teleporting on edge '3o', time=19.90.
+Warning: Vehicle 'eb_left3' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
+Warning: Teleporting vehicle 'eb_left2'; junction collision with vehicle 'eb_left3', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=54.10 stage=move.
+Warning: Vehicle 'eb_left2' ends teleporting on edge '4o', time=54.10.
+Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=54.30.
+Warning: Vehicle 'wb_right2' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=44.20.
+Warning: Vehicle 'eb_straight1' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=45.70.
+Warning: Vehicle 'sb_left1' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=45.90.
+Warning: Vehicle 'wb_left1' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=46.10.
+Warning: Vehicle 'wb_straight1' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=47.10.
+Warning: Teleporting vehicle 'nb_straight2'; collision with vehicle 'nb_left2', lane='3si_2', gap=-2.53', latGap=-1.80, time=47.60 stage=events.
+Warning: Vehicle 'nb_straight2' ends teleporting on edge '4o', time=47.60.
+Warning: Vehicle 'nb_straight2' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=47.70.
+Warning: Teleporting vehicle 'sb_left4'; collision with vehicle 'sb_straight3', lane='4si_2', gap=-5.04', latGap=-1.80, time=51.70 stage=events.
+Warning: Vehicle 'sb_left4' ends teleporting on edge '2o', time=51.70.
+Warning: Vehicle 'eb_right4' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=51.90.
+Warning: Teleporting vehicle 'nb_left3'; collision with vehicle 'nb_straight4', lane='3si_2', gap=-5.44', latGap=-1.80, time=52.00 stage=events.
+Warning: Vehicle 'nb_left3' ends teleporting on edge '1o', time=52.00.
+Warning: Teleporting vehicle 'wb_straight2'; collision with vehicle 'wb_right3', lane='2si_0', gap=-5.37', latGap=-1.80, time=53.60 stage=events.
+Warning: Vehicle 'wb_straight2' ends teleporting on edge '1o', time=53.60.
+Warning: Teleporting vehicle 'wb_straight1'; collision with vehicle 'wb_left3', lane='2si_1', gap=-6.41', latGap=-1.80, time=53.70 stage=events.
+Warning: Vehicle 'wb_straight2' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=53.70.
+Warning: Vehicle 'wb_left3' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=53.70.
+Warning: Vehicle 'wb_straight1' ends teleporting on edge '1o', time=53.70.
+Warning: Teleporting vehicle 'wb_left1'; junction collision with vehicle 'wb_left3', lane=':0_5_0', gap=-5.00', latGap=-1.80, time=53.80 stage=move.
+Warning: Vehicle 'wb_left1' ends teleporting on edge '3o', time=53.80.
+Warning: Vehicle 'nb_straight4' performs emergency braking on lane ':0_7_0' with decel=9.00, wished=5.00, severity=1.00, time=71.30.
+Warning: Vehicle 'eb_right2' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=8.00.
+Warning: Teleporting vehicle 'wb_right4'; collision with vehicle 'wb_straight3', lane='2si_0', gap=-6.01', latGap=-1.80, time=45.10 stage=events.
+Warning: Vehicle 'wb_right4' ends teleporting on edge '4o', time=45.10.
+Warning: Vehicle 'wb_left3' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
+Warning: Teleporting vehicle 'wb_left1'; junction collision with vehicle 'wb_left3', lane=':0_5_0', gap=-5.02', latGap=-1.80, time=54.10 stage=move.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=54.10 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=54.10.
+Warning: Vehicle 'wb_left1' ends teleporting on edge '3o', time=54.10.
+Warning: Teleporting vehicle 'nb_right1'; collision with vehicle 'nb_straight2', lane='3si_0', gap=-6.00', latGap=-1.80, time=61.00 stage=events.
+Warning: Vehicle 'nb_right1' ends teleporting on edge '2o', time=61.00.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=68.20.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.00', latGap=-1.80, time=68.30 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=68.30.
+Warning: Vehicle 'eb_straight2' performs emergency braking on lane '1si_1' with decel=9.00, wished=5.00, severity=1.00, time=58.00.
+Warning: Teleporting vehicle 'eb_straight4'; collision with vehicle 'dut', lane='1si_1', gap=-1.13', latGap=-1.80, time=66.70 stage=events.
+Warning: Teleporting vehicle 'dut'; collision with vehicle 'eb_straight2', lane='1si_1', gap=-4.49', latGap=-1.80, time=66.70 stage=events.
+Warning: Vehicle 'dut' ends teleporting on edge '4o', time=66.70.
+Warning: Vehicle 'eb_straight4' ends teleporting on edge '2o', time=66.70.
+Warning: Vehicle 'dut' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=66.80.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-3.66', latGap=-1.80, time=66.80 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=66.80.
+Warning: Vehicle 'wb_straight1' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=45.90.
+Warning: Vehicle 'sb_left1' performs emergency braking on lane ':0_2_0' with decel=9.00, wished=5.00, severity=1.00, time=46.10.
+Warning: Vehicle 'wb_left1' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=46.70.
+Warning: Vehicle 'wb_left3' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.90.
+Warning: Teleporting vehicle 'wb_straight4'; collision with vehicle 'wb_left3', lane='2si_1', gap=-1.48', latGap=-1.80, time=54.90 stage=move.
+Warning: Vehicle 'wb_straight4' ends teleporting on edge '1o', time=54.90.
+Warning: Teleporting vehicle 'wb_left1'; junction collision with vehicle 'wb_left3', lane=':0_5_0', gap=-5.00', latGap=-1.80, time=55.00 stage=move.
+Warning: Vehicle 'wb_left1' ends teleporting on edge '3o', time=55.00.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=57.10.
+Warning: Teleporting vehicle 'dut'; collision with vehicle 'eb_straight4', lane='1si_1', gap=-4.98', latGap=-1.80, time=57.10 stage=move.
+Warning: Vehicle 'dut' ends teleporting on edge '4o', time=57.10.
+Warning: Vehicle 'dut' performs emergency braking on lane '1si_2' with decel=9.00, wished=5.00, severity=1.00, time=57.20.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-3.66', latGap=-1.80, time=57.20 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=57.20.
+Warning: Vehicle 'eb_right2' performs emergency braking on lane '1si_0' with decel=9.00, wished=5.00, severity=1.00, time=63.90.
+Warning: Vehicle 'wb_right3' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=66.50.
+Warning: Teleporting vehicle 'nb_straight2'; collision with vehicle 'nb_left2', lane='3si_1', gap=-6.30', latGap=-1.80, time=90.80 stage=events.
+Warning: Vehicle 'nb_left2' performs emergency stop at the end of lane '3si_1' because there is no connection to the next edge (decel=-1.17, offset=0.02), time=90.80.
+Warning: Vehicle 'nb_straight2' ends teleporting on edge '4o', time=90.80.
+Warning: Vehicle 'sb_right1' performs emergency braking on lane '4si_0' with decel=9.00, wished=5.00, severity=1.00, time=8.80.
+Warning: Teleporting vehicle 'eb_right2'; collision with vehicle 'eb_straight2', lane='1si_0', gap=-1.66', latGap=-1.80, time=9.20 stage=events.
+Warning: Vehicle 'eb_right2' ends teleporting on edge '3o', time=9.20.
+Warning: Vehicle 'wb_left1' performs emergency braking on lane ':0_5_0' with decel=9.00, wished=5.00, severity=1.00, time=2.80.
+Warning: Vehicle 'wb_straight1' performs emergency braking on lane '2si_1' with decel=9.00, wished=5.00, severity=1.00, time=2.80.
+Warning: Vehicle 'nb_left3' performs emergency braking on lane ':0_8_0' with decel=9.00, wished=5.00, severity=1.00, time=18.80.
+Warning: Teleporting vehicle 'eb_straight4'; collision with vehicle 'dut', lane='1si_1', gap=-0.52', latGap=-1.80, time=54.00 stage=events.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=54.00.
+Warning: Vehicle 'eb_straight4' ends teleporting on edge '2o', time=54.00.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.02', latGap=-1.80, time=54.10 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=54.10.
+Warning: Teleporting vehicle 'wb_straight2'; collision with vehicle 'wb_left2', lane='2si_1', gap=-0.30', latGap=-1.80, time=15.20 stage=events.
+Warning: Vehicle 'wb_straight2' ends teleporting on edge '1o', time=15.20.
+Warning: Teleporting vehicle 'wb_left3'; junction collision with vehicle 'wb_left2', lane=':0_5_0', gap=-2.03', latGap=-1.80, time=19.80 stage=move.
+Warning: Vehicle 'wb_left3' ends teleporting on edge '3o', time=19.80.
+Warning: Vehicle 'sb_straight3' performs emergency braking on lane '4si_1' with decel=9.00, wished=5.00, severity=1.00, time=54.70.
+Warning: Vehicle 'dut' performs emergency stop at the end of lane '1si_1' because there is no connection to the next edge (decel=-0.13, offset=2.16), time=59.30.
+Warning: Teleporting vehicle 'eb_left1'; junction collision with vehicle 'dut', lane=':0_11_0', gap=-5.09', latGap=-1.80, time=59.40 stage=move.
+Warning: Vehicle 'eb_left1' ends teleporting on edge '4o', time=59.40.
+Warning: Vehicle 'wb_right4' performs emergency braking on lane '2si_0' with decel=9.00, wished=5.00, severity=1.00, time=59.60.
+Warning: Vehicle 'wb_left3' performs emergency stop at the end of lane '2si_1' because there is no connection to the next edge (decel=0.00, offset=2.16), time=63.50.
+Warning: Teleporting vehicle 'wb_left1'; junction collision with vehicle 'wb_left3', lane=':0_5_0', gap=-5.00', latGap=-1.80, time=63.60 stage=move.
+Warning: Vehicle 'wb_left1' ends teleporting on edge '3o', time=63.60.
+Warning: Teleporting vehicle 'sb_left1'; collision with vehicle 'sb_straight2', lane='4si_2', gap=-5.38', latGap=-1.80, time=75.00 stage=events.
+Warning: Vehicle 'sb_left1' ends teleporting on edge '2o', time=75.00.
+Warning: Vehicle 'nb_straight1' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=76.80.
+Warning: Vehicle 'wb_straight3' performs emergency braking on lane ':0_4_0' with decel=9.00, wished=5.00, severity=1.00, time=78.10.
+Warning: Teleporting vehicle 'nb_straight2'; collision with vehicle 'nb_right3', lane='3si_1', gap=-1.01', latGap=-1.80, time=80.00 stage=events.
+Warning: Teleporting vehicle 'nb_right3'; collision with vehicle 'nb_straight1', lane='3si_1', gap=-4.68', latGap=-1.80, time=80.00 stage=events.
+Warning: Vehicle 'nb_straight2' ends teleporting on edge '4o', time=80.00.
+Warning: Vehicle 'nb_right3' ends teleporting on edge '2o', time=80.00.
+Warning: Vehicle 'nb_right3' performs emergency braking on lane '3si_0' with decel=9.00, wished=5.00, severity=1.00, time=80.10.
+Warning: Teleporting vehicle 'nb_right3'; collision with vehicle 'eb_straight1', lane='2o_0', gap=-2.50', latGap=-1.80, time=80.60 stage=move.
+Warning: Vehicle 'nb_right3' teleports beyond arrival edge '2o', time=80.60.
+Warning: Vehicle 'nb_straight2' performs emergency braking on lane '3si_1' with decel=9.00, wished=5.00, severity=1.00, time=81.20.
+Warning: Teleporting vehicle 'nb_right2'; collision with vehicle 'nb_straight2', lane='3si_0', gap=-4.72', latGap=-1.80, time=84.00 stage=events.
+Warning: Vehicle 'nb_straight2' performs emergency stop at the end of lane '3si_0' because there is no connection to the next edge (decel=0.00, offset=0.26), time=84.00.
+Warning: Vehicle 'nb_right2' ends teleporting on edge '2o', time=84.00.
+Warning: Teleporting vehicle 'nb_right3'; collision with vehicle 'nb_straight3', lane='3si_0', gap=-3.46', latGap=-1.80, time=87.90 stage=events.
+Warning: Vehicle 'nb_straight3' performs emergency stop at the end of lane '3si_0' because there is no connection to the next edge (decel=0.00, offset=0.26), time=87.90.
+Warning: Vehicle 'nb_right3' ends teleporting on edge '2o', time=87.90.
+Warning: Vehicle 'nb_straight3' performs emergency braking on lane ':0_7_0' with decel=9.00, wished=5.00, severity=1.00, time=90.00.
