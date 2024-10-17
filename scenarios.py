@@ -4,6 +4,8 @@ import numpy as np
 from shapely.geometry import Polygon
 from typing import Tuple, List
 
+import traci._simulation
+
 import constants
 import utils
 import traci
@@ -14,7 +16,9 @@ class GammaCrossAI:
         self.sidVehicle = {} # vehicles that want to do side move
         return
     
-    def on_step(self):
+    def on_step(self) -> bool:
+        dut_perform_side_move = False
+
         # step2 of side move
         for v in self.sidVehicle:
             traci.vehicle.moveTo(v,self.sidVehicle[v][0],self.sidVehicle[v][1]+8)
@@ -43,11 +47,15 @@ class GammaCrossAI:
                                     traci.vehicle.highlight(v1, (255, 0, 0, 255), -1, 1, 4,0)
                                     traci.vehicle.moveTo(v1,l1,pos+8)
                                     self.sidVehicle[v1] = (l, pos+8)
+                                    
+                                    # Added code to check if DUT performs side move.
+                                    if v1 == constants.DUT:
+                                        dut_perform_side_move = True
                                     break
-        return
+        return dut_perform_side_move
 
 
-    
+
 
 class GammaCrossScenario(sxp.Scenario):
     def __init__(self, params : pd.Series):
@@ -57,7 +65,21 @@ class GammaCrossScenario(sxp.Scenario):
         ai = GammaCrossAI()
         
         self._score = pd.Series({
-            "collision" : 0
+            "collisions" : [],
+            "speed (on enter)" : -1,
+            "braking force" : 0,
+            "braking force (norm)" : 0,
+            "dtc (front)" : 9999,
+            "ttc (front)" : 9999,
+            "dtc (inter)" : 9999,
+            "dtc (approach)" : 9999,
+            "tl state (on enter)" : "",
+            "foes in inter (on enter)" : [],
+            "time (on enter)" : -1,
+            "time (end)" : -1,
+            "n stops" : 0,
+            "side move" : -1,
+            "run red light" : False
         })
 
         if constants.sumo.gui:
@@ -71,17 +93,32 @@ class GammaCrossScenario(sxp.Scenario):
         self.clear_polygons()
         self.add_passenger_polygons()
 
+        self._start_time = traci.simulation.getTime()
+        self._dut_speed_history = []
+
         """
         Simulation Loop
         """
         prev_dut_lane_id = None
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
-            ai.on_step()
+
+            # AI Logic
+            dut_perform_side_move = ai.on_step()
+            if dut_perform_side_move:
+                self.score["side move"] = self.get_time()
+
+            # Metrics
+            self.collision_metrics()                
+            self.check_for_new_stops()
+            self.foe_in_front_metrics()
+            self.braking_force_metrics()
 
             # Find moment of entering/exiting intersection
             dut_lane_id = traci.vehicle.getLaneID(constants.DUT)
-            if prev_dut_lane_id is None:
+            if dut_lane_id[0] == "1":
+                self.dut_approach()
+            elif prev_dut_lane_id is None:
                 pass
             elif prev_dut_lane_id[0] != ":" and dut_lane_id[0] == ":":
                 self.dut_enter_intersection()
@@ -100,6 +137,9 @@ class GammaCrossScenario(sxp.Scenario):
 
             prev_dut_lane_id = traci.vehicle.getLaneID(constants.DUT)
             continue
+
+        self.score["time (end)"] = self.get_time()
+
         return
     
     @property
@@ -109,16 +149,52 @@ class GammaCrossScenario(sxp.Scenario):
     @property
     def params(self) -> pd.Series:
         return self._params
-
     
+    @property
+    def start_time(self) -> float:
+        """
+        Sim time when the simulation begins (after initializtion) in seconds.
+        """
+        return self._start_time
+    
+    @property
+    def dut_speed_history(self) -> list[float]:
+        """
+        DUT speed history (in mps).
+        """
+        return self._dut_speed_history
+
+    def dut_approach(self):
+        self.dtc_approach_metrics()
+        return
+
     def dut_enter_intersection(self):
         traci.vehicle.setColor(
             constants.DUT,
             constants.RGBA.cyan
         )
+        self.score["time (on enter)"] = self.get_time()
+        self.score["speed (on enter)"] = traci.vehicle.getSpeed(constants.DUT)
+
+        # TL State
+        tl_id = traci.trafficlight.getIDList()[0]
+        tl_state = traci.trafficlight.getRedYellowGreenState(tl_id)
+        self.score["tl state (on enter)"] = tl_state
+
+        # Does DUT run the red light?
+        i_tl = constants.traci.gamma_cross.tl_order[
+            constants.traci.gamma_cross.dut_route
+        ] 
+        self.score["run red light"] = tl_state[i_tl] == "r"
+        
+        # Foes in intersection
+        self.score["foes in inter (on enter)"] = self.get_foes_in_intersection()
         return
 
     def dut_isin_intersection(self):
+        # Collect intesection metrics when moving.
+        if traci.vehicle.getSpeed(constants.DUT) > 0:
+            self.dtc_intersection_metrics()
         return
 
     def dut_exit_intersection(self):
@@ -127,6 +203,193 @@ class GammaCrossScenario(sxp.Scenario):
             constants.RGBA.light_blue
         )
         return
+    
+    def dtc_intersection_metrics(self):
+        """
+        Get the vehicles within the intersection
+        """
+        assert traci.vehicle.getLaneID(constants.DUT)[0] == ":"
+        # print()
+
+        foe_polygons = []
+        for vid in traci.vehicle.getIDList():
+            if vid == constants.DUT:
+                continue
+            lid = traci.vehicle.getLaneID(vid)
+            if lid[0] == ":":
+                poly = Polygon( traci.polygon.getShape(vid) )
+                foe_polygons.append(poly)
+            continue  
+        
+        if len(foe_polygons) == 0:
+            return 
+        
+        # Measure the distance from each foe to the DUT
+        dut_polygon = Polygon( traci.polygon.getShape(constants.DUT) )
+        dist = min([dut_polygon.distance(poly) for poly in foe_polygons])
+        
+        self.score["dtc (inter)"] = min(self.score["dtc (inter)"],dist)
+        return
+    
+    def dtc_approach_metrics(self):
+        """
+        Get vehicles within the approach OR the intersection
+        """
+        assert traci.vehicle.getLaneID(constants.DUT)[0] == "1"
+
+        foe_polygons = []
+        for vid in traci.vehicle.getIDList():
+            if vid == constants.DUT:
+                continue
+            lid = traci.vehicle.getLaneID(vid)
+            if lid[0] in ":1":
+                poly = Polygon( traci.polygon.getShape(vid) )
+                foe_polygons.append(poly)
+            continue    
+        
+        if len(foe_polygons) == 0:
+            return 
+        
+        # Measure the distance from each foe to the DUT
+        dut_polygon = Polygon( traci.polygon.getShape(constants.DUT) )
+        dist = min([dut_polygon.distance(poly) for poly in foe_polygons])
+        
+        self.score["dtc (approach)"] = min(self.score["dtc (approach)"],dist)
+        return
+
+    def braking_force_metrics(self):
+        accel = traci.vehicle.getAcceleration(constants.DUT)
+        if accel >= 0:
+            return
+        
+        brake = -accel
+        if brake > self.score["braking force"]:
+            self.score["braking force"] = brake
+
+            decel = traci.vehicle.getDecel(constants.DUT)
+            e_decel = traci.vehicle.getEmergencyDecel(constants.DUT)
+            
+            if brake <= decel:
+                brake_norm = brake/decel
+            else:
+                brake_norm = 1 + (brake - decel)/(e_decel - decel)  
+
+            # Correct for float rounding error at the upper limit
+            self.score["braking force (norm)"] = brake_norm
+        return
+
+    def foe_in_front_metrics(self):
+        foe = self.find_vehicle_in_front_of_dut()
+        if foe is None:
+            return
+        
+        # print("\n\n")
+
+        # Distance to collission from shortest point on polygon
+        foe_poly = Polygon( traci.polygon.getShape(foe) )
+        dut_poly = Polygon( traci.polygon.getShape(constants.DUT) )
+        dtc = dut_poly.distance(foe_poly)
+        
+        self.score["dtc (front)"] = min(self.score["dtc (front)"], dtc)
+
+        # Time to collision
+        foe_speed = traci.vehicle.getSpeed(foe)
+        dut_speed = traci.vehicle.getSpeed(constants.DUT)
+        rel_speed = dut_speed - foe_speed
+        if rel_speed > 0:
+            ttc = dtc / rel_speed 
+            self.score["ttc (front)"] = min(self.score["ttc (front)"], ttc)
+        return
+    
+    def find_vehicle_in_front_of_dut(self) -> str:
+        """
+        Finds the nearest vehicle in front of the DUT within the same lane.
+        
+        Returns vehicle ID or None.
+        """
+        # Get foes in front of DUT
+        dut_lane = traci.vehicle.getLaneID(constants.DUT)
+
+        # No Other vehicles in lane
+        if traci.lane.getLastStepVehicleNumber(dut_lane) <= 1:
+            return None
+
+        # Vehicle in front of DUT
+        dut_pos = traci.vehicle.getLanePosition(constants.DUT)
+        data = []
+        for vid in traci.lane.getLastStepVehicleIDs(dut_lane):
+            if vid == constants.DUT:
+                continue
+            pos = traci.vehicle.getLanePosition(vid)
+            s = pd.Series({
+                "vid" : vid,
+                "pos" : pos
+            })
+            data.append(s)
+
+        df = pd.DataFrame(data)
+        df = df[df["pos"] > dut_pos].sort_values(by="pos",ascending=True)
+        if len(df.index) == 0:
+            return None
+        return df.iloc[0]["vid"]
+
+    def check_for_new_stops(self):
+        cur = traci.vehicle.getSpeed(constants.DUT)
+        if len(self.dut_speed_history) > 0:
+            prev = self.dut_speed_history[-1]
+            if prev != 0 and cur == 0:
+                self.score["n stops"] += 1
+        self.dut_speed_history.append(cur)
+        return
+    
+    def collision_metrics(self):
+        collisions = traci.simulation.getCollisions()
+        for c in collisions:
+            c : traci._simulation.Collision
+            if constants.DUT in [c.collider, c.victim]:
+                self.score["collisions"].append( self.collision2dict(c) )
+            continue
+        return
+
+    def collision2dict(self, c : traci._simulation.Collision) -> dict:
+        assert constants.DUT in [c.collider, c.victim]
+        
+        # print(c)
+        # print() 
+
+        data = {
+            "time" : self.get_time(),
+            "pos" : c.pos,
+            "lane" : c.lane
+        }
+        if constants.DUT == c.collider:
+            data["status"] = "collider"
+            data["speed"] = c.colliderSpeed
+            data["other type"] = c.victimType
+            data["other speed"] = c.victimSpeed
+        else:
+            data["status"] = "victim"
+            data["speed"] = c.victimSpeed
+            data["other type"] = c.colliderType
+            data["other speed"] = c.colliderSpeed
+
+        # print(data)
+        # print()
+
+        # quit()
+        return data
+    
+    def get_foes_in_intersection(self) -> list[str]:
+        foes = [vid for vid in traci.vehicle.getIDList() if not \
+            ((vid == constants.DUT) \
+             or (traci.vehicle.getLaneID(vid)[0] != ":"))]
+        return foes
+
+    def get_time(self) -> float:
+        """
+        Get simualtion time, adjust for initializiton
+        """
+        return traci.simulation.getTime() - self.start_time
 
     def add_passenger_polygons(self):
 

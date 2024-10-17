@@ -23,7 +23,7 @@ class Runner:
         traci_client = traci_clients.GenericClient(
             constants.traci.gamma_cross.config)
         
-        tsc = lambda s : s["collision"] > 0
+        tsc = lambda s : len(s["collisions"]) > 100
         scenario = scenarios.GammaCrossScenario
 
         seq_exp = sxp.SequenceExplorer(
@@ -41,8 +41,12 @@ class Runner:
             seq_exp.step()
             # break
         
-
         traci_client.close()
+
+        prefix = "gamma_cross_%s" % constants.traci.gamma_cross.dut_route
+        seq_exp.params_history.to_feather("out/%s_params.feather" % prefix)
+        seq_exp.score_history.to_feather("out/%s_scores.feather" % prefix)
+
         return
     
     @property

@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
-import math
 from typing import List, Tuple
 import numpy as np
 from shapely.geometry import Polygon
+import matplotlib.pyplot as plt
 
 def mps2kph(mps : float) -> float:
     return 3.6 * mps
@@ -72,3 +72,37 @@ def passenger_polygon(
 	# Step 3: Translate points back to the original center
 	final_points = rotated_points + center
 	return Polygon(final_points)
+
+def plot_polygon(polygon : Polygon):
+	# Extract the x and y coordinates of the Polygon
+	x, y = polygon.exterior.xy
+
+	# Plot the Polygon using matplotlib
+	plt.figure()
+	plt.plot(x, y, color='blue', linewidth=2, linestyle='-', marker='o')
+	plt.fill(x, y, color='skyblue', alpha=0.5)  # Optionally fill the Polygon
+	plt.xlabel('X')
+	plt.ylabel('Y')
+	plt.grid()
+	plt.gca().set_aspect('equal')
+	plt.show()
+	return 
+
+def plot_car_polygons(dut_polygon : Polygon, foe_polygon : Polygon):
+	# plt.clf()
+	plt.figure()
+
+	plt.plot(*dut_polygon.exterior.xy, 
+		  color='blue', linewidth=2, linestyle='-', marker='o')
+	plt.fill(*dut_polygon.exterior.xy, color='skyblue', alpha=0.5) 
+	
+	plt.plot(*foe_polygon.exterior.xy, 
+		  color='red', linewidth=2, linestyle='-', marker='o')
+	plt.fill(*foe_polygon.exterior.xy, color='lightcoral', alpha=0.5) 
+
+	plt.xlabel('X')
+	plt.ylabel('Y')
+	plt.grid()
+	plt.gca().set_aspect('equal')
+	plt.show()
+	return
