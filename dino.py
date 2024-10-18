@@ -43,6 +43,7 @@ class Runner:
         
         traci_client.close()
 
+        return
         prefix = "gamma_cross_%s" % constants.traci.gamma_cross.dut_route
         seq_exp.params_history.to_feather("out/%s_params.feather" % prefix)
         seq_exp.score_history.to_feather("out/%s_scores.feather" % prefix)

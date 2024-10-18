@@ -12,7 +12,7 @@ class RGBA:
     red = (255,0,0,255)
     yellow = (255,255,0,255)
 class sumo:
-    gui = False
+    gui = True
     start = True
     quit_on_end = True
     delay_ms = 50
@@ -32,7 +32,7 @@ class sumo:
 class traci:
     default_lane_change_behavior = 1621
     class gamma_cross:
-        dut_route = "eb_right"    
+        dut_route = "eb_left"    
         turn_lane_length = 200
         net_file = "sumo_config/gamma_cross/cross3l.net.xml"
         route_files = "sumo_config/gamma_cross/cross3l.rou.xml"

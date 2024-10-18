@@ -1,3 +1,6 @@
 pandas==2.1.4
 openpyxl
 xlrd==1.2.0
+traci
+scenarioxp
+shapely
