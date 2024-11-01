@@ -7,15 +7,29 @@ import matplotlib.pyplot as plt
 
 class EDA:
     def __init__(self):
-        for direction in ["left", "straight", "right"]:
+        direction = "left"
+        params_df = pd.read_feather(
+                "out/mc/mc_gamma_cross_eb_%s_params.feather" % direction)
+        scores_df = pd.read_feather(
+            "out/mc/mc_gamma_cross_eb_%s_scores.feather" % direction)
+        
+        print(scores_df)
+        print()
+
+        collision = scores_df.iloc[3]["collisions"][0]
+        print(collision)
+        return
+    
+    def quick_look(self):
+        for direction in ["left", "straight"]:
             print("\n\n")
             print(":: %s TURN ::" % direction.upper())
             print()
 
             params_df = pd.read_feather(
-                "out/tuning-data/gamma_cross_eb_%s_params.feather" % direction)
+                "out/mc/mc_gamma_cross_eb_%s_params.feather" % direction)
             scores_df = pd.read_feather(
-                "out/tuning-data/gamma_cross_eb_%s_scores.feather" % direction)
+                "out/mc/mc_gamma_cross_eb_%s_scores.feather" % direction)
             
             
             df = scores_df
@@ -37,6 +51,5 @@ class EDA:
             df = scores_df.describe().T[["count","mean","std","min","max"]]
             print(df)
         return
-    
 if __name__ == "__main__":
     EDA()

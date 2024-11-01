@@ -96,12 +96,19 @@ class GammaCrossScenario(sxp.Scenario):
         self._start_time = traci.simulation.getTime()
         self._dut_speed_history = []
 
+        if constants.sumo.pause_after_initialze:
+            input()
+
         """
         Simulation Loop
         """
         prev_dut_lane_id = None
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
+
+            # Exit if DUT doesn't exist.
+            if not constants.DUT in traci.vehicle.getIDList():
+                break
 
             # AI Logic
             dut_perform_side_move = ai.on_step()
@@ -456,7 +463,7 @@ class GammaCrossScenario(sxp.Scenario):
         traci.vehicle.add(
             constants.DUT,
             "warmup",
-            typeID= "AggrCar",
+            typeID= constants.traci.gamma_cross.dut_type,
             departLane = 60,
             departSpeed = utils.kph2mps(self.params["dut_s0"])
         )
@@ -488,7 +495,9 @@ class GammaCrossScenario(sxp.Scenario):
             lid,
             pos
         )
-        
+
+
+
         # Restore route
         traci.vehicle.setRouteID(constants.DUT, rid)
 
@@ -500,7 +509,8 @@ class GammaCrossScenario(sxp.Scenario):
 
         # Focus on DUT
         if constants.sumo.gui:
-            traci.gui.trackVehicle(constants.sumo.default_view, constants.DUT)
+            if constants.sumo.track_dut:
+                traci.gui.trackVehicle(constants.sumo.default_view, constants.DUT)
             traci.gui.setZoom(
                 constants.sumo.default_view, 
                 constants.sumo.dut_zoom
