@@ -65,10 +65,10 @@ class CollisionModel:
         return self.model.predict(X)
 
 class LIMEAnalyzer:
-    def __init__(self, X_train, feature_names, model):
+    def __init__(self, X_train, model):
         self.explainer = LimeTabularExplainer(
             X_train.values,
-            feature_names=feature_names,
+            feature_names=X_train.columns,
             class_names=['num_collisions'],
             mode='regression'
         )
@@ -128,7 +128,7 @@ def main():
     model.train_model(X_train, y_train)
     test_pred = model.evaluate(X_test, y_test)
 
-    lime_analyzer = LIMEAnalyzer(X_train, X_train.columns, model)
+    lime_analyzer = LIMEAnalyzer(X_train, model)
     lime_analyzer.analyze_and_plot(X_test, y_test, test_pred, "out")
 
 if __name__ == "__main__":
