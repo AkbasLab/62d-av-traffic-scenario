@@ -1,5 +1,5 @@
-seed = 123
-n_tests = 1000
+seed = 12312
+n_tests = 10_000
 
 
 
@@ -12,9 +12,11 @@ class RGBA:
     red = (255,0,0,255)
     yellow = (255,255,0,255)
 class sumo:
-    gui = True
+    gui = False
     start = True
     quit_on_end = True
+    pause_after_initialze = False
+    track_dut = False
     delay_ms = 50
     action_step_length = 0.1
     step_length = 0.1
@@ -29,11 +31,17 @@ class sumo:
     init_state_file = "temp/init-state.xml"
     default_view = 'View #0'
 
+
+class vehicle_types:
+    aggresive = "AggrCar"
+    conservative = "Car"
+
 class traci:
     default_lane_change_behavior = 1621
     class gamma_cross:
-        dut_route = "eb_left"    
+        dut_route = "eb_right"    
         turn_lane_length = 200
+        dut_type = vehicle_types.aggresive
         net_file = "sumo_config/gamma_cross/cross3l.net.xml"
         route_files = "sumo_config/gamma_cross/cross3l.rou.xml"
         config = {
