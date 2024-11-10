@@ -1,14 +1,16 @@
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
+from catboost import CatBoostRegressor
 
 class CollisionModel:
-    def __init__(self):
+    def __init__(self, random_state=None):
         self.model = CatBoostRegressor(
             iterations=1000,
             learning_rate=0.07,
             depth=8,
             l2_leaf_reg=2,
             bagging_temperature=0.5,
-            random_state=555,
+            random_state=random_state,
             verbose=0
         )
 
