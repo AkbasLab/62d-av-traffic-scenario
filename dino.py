@@ -58,9 +58,16 @@ class Runner:
         
         self.traci_client.close()
 
-        prefix = "gamma_cross_%s" % constants.traci.gamma_cross.dut_route
+        type_map = {
+            constants.vehicle_types.aggresive : "a",
+            constants.vehicle_types.conservative : "c"
+        }
+        c = type_map[constants.traci.gamma_cross.dut_type]
+
+        prefix = "gamma_cross_%s_%s" % (c , constants.traci.gamma_cross.dut_route)
         seq_exp.params_history.to_feather("out/mc_%s_params.feather" % prefix)
         seq_exp.score_history.to_feather("out/mc_%s_scores.feather" % prefix)
+
         return
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-31 18:56:01 by Eclipse SUMO sumo Version 1.20.0
+<!-- generated on 2024-11-18 12:48:29 by Eclipse SUMO sumo Version 1.20.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
     </traci_server>
 
     <random_number>
-        <seed value="12312"/>
+        <seed value="1234"/>
     </random_number>
 
     <gui_only>
@@ -57,7 +57,7 @@
     <route id="wb_right" state="1" edges="2fi 2si 4o"/>
     <route id="wb_straight" state="1" edges="2fi 2si 1o"/>
     <delay number="0" begin="0" end="0" depart="0.00" time="0.00"/>
-    <vType id="AggrCar" length="5.00" minGap="2.00" maxSpeed="50.00" color="red" accel="1.0" decel="5.0" sigma="0"/>
-    <vType id="Car" length="5.00" minGap="2.00" maxSpeed="50.00" accel="1.0" decel="5.0" sigma="0"/>
+    <vType id="AggrCar" length="5.00" minGap="2.00" maxSpeed="13.89" color="red" accel="1.0" decel="5.0" sigma="0"/>
+    <vType id="Car" length="5.00" minGap="2.00" maxSpeed="13.89" accel="1.0" decel="5.0" sigma="0"/>
     <tlLogic id="0" programID="0" phase="0" duration="0"/>
 </snapshot>

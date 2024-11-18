@@ -1,8 +1,8 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    
-   <vType accel="1.0" decel="5.0" id="AggrCar" length="5.0" minGap="2.0" maxSpeed="50.0" sigma="0" color = "1,0,0" />
-   <vType accel="1.0" decel="5.0" id="Car" length="5.0" minGap="2.0" maxSpeed="50.0" sigma="0"/>
+   <vType accel="1.0" decel="5.0" id="AggrCar" length="5.0" minGap="2.0" maxSpeed="13.89" sigma="0" color = "1,0,0" />
+   <vType accel="1.0" decel="5.0" id="Car" length="5.0" minGap="2.0" maxSpeed="13.89" sigma="0"/>
 
    <route id="eb_left" edges="1fi 1si 4o"/>
    <route id="eb_straight" edges="1fi 1si 2o"/>

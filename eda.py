@@ -9,15 +9,17 @@ class EDA:
     def __init__(self):
         direction = "left"
         params_df = pd.read_feather(
-                "out/mc/mc_gamma_cross_eb_%s_params.feather" % direction)
+                "out/mc/mc_gamma_cross_a_eb_%s_params.feather" % direction)
         scores_df = pd.read_feather(
-            "out/mc/mc_gamma_cross_eb_%s_scores.feather" % direction)
+            "out/mc/mc_gamma_cross_a_eb_%s_scores.feather" % direction)
         
-        print(scores_df)
+        print(scores_df.iloc[:10])
         print()
 
-        collision = scores_df.iloc[3]["collisions"][0]
-        print(collision)
+        scores_df.iloc[:100].to_csv("temp/scores.tsv", sep="\t")
+
+        # collision = scores_df.iloc[3]["collisions"][0]
+        # print(collision)
         return
     
     def quick_look(self):

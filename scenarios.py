@@ -99,6 +99,14 @@ class GammaCrossScenario(sxp.Scenario):
         if constants.sumo.pause_after_initialze:
             input()
 
+
+        # print("\n\n")
+        # w = traci.vehicle.getWidth(constants.DUT)
+        # l = traci.vehicle.getLength(constants.DUT)
+        # s = traci.vehicle.getMaxSpeed(constants.DUT)
+        # print(w, l, s)
+        # quit()
+
         """
         Simulation Loop
         """
@@ -362,7 +370,8 @@ class GammaCrossScenario(sxp.Scenario):
         assert constants.DUT in [c.collider, c.victim]
         
         # print(c)
-        # print() 
+        # print()
+        # quit() 
 
         data = {
             "time" : self.get_time(),
@@ -372,11 +381,13 @@ class GammaCrossScenario(sxp.Scenario):
         if constants.DUT == c.collider:
             data["status"] = "collider"
             data["speed"] = c.colliderSpeed
+            data["other id"] = c.victim
             data["other type"] = c.victimType
             data["other speed"] = c.victimSpeed
         else:
             data["status"] = "victim"
             data["speed"] = c.victimSpeed
+            data["other id"] = c.collider
             data["other type"] = c.colliderType
             data["other speed"] = c.colliderSpeed
 
