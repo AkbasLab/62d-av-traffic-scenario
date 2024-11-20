@@ -3,6 +3,7 @@ from typing import List, Tuple
 import numpy as np
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def mps2kph(mps : float) -> float:
     return 3.6 * mps
@@ -105,4 +106,54 @@ def plot_car_polygons(dut_polygon : Polygon, foe_polygon : Polygon):
 	plt.grid()
 	plt.gca().set_aspect('equal')
 	plt.show()
+	return
+
+def describe_as_latex(df : pd.DataFrame) -> str:
+	"""
+	Summarizes a DataFrame @df in latex format.
+	"""
+	stats = ["count", "mean", "std", "min", "max"]
+	df = df.copy()
+	df = df.describe().T[["count", "mean", "std", "min", "max"]]
+	df = df.round(decimals=3)
+
+	print(df)
+	print()
+
+	alignment = "rlrr@{.}lr@{.}lr@{.}lr@{.}l"
+	msg = "\\begin{tabular}{%s}\\toprule\n" % alignment
+	msg += "\t & Feature "
+	
+	for feat in stats:
+		if feat == "count":
+			msg += "& Count "
+		else:
+			msg += "& \\multicolumn{2}{c}{%s} " % feat.capitalize()
+		continue
+	msg += "\\\\\\midrule\n"
+
+	for i in range(len(df.index)):
+		s = df.iloc[i]
+		msg += " &"
+		msg += " %s " % s.name
+
+		for feat in stats:
+			left , right = str(s[feat]).split(".")
+			left = "{:,}".format(int(left))
+			if feat == "count":
+				msg += "& %s " % left
+			else: 
+				msg += "& %s&%s " % (left,right)
+			continue
+
+		msg += "\\\\\n"
+		continue
+		
+	msg += "\\bottomrule\n"
+	msg += "\\end{tabular}\n"
+
+	print(msg)
+
+
+
 	return

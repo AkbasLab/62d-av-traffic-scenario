@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-18 12:48:29 by Eclipse SUMO sumo Version 1.20.0
+<!-- generated on 2024-11-18 16:10:51 by Eclipse SUMO sumo Version 1.20.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
     </traci_server>
 
     <random_number>
-        <seed value="1234"/>
+        <seed value="12342"/>
     </random_number>
 
     <gui_only>
