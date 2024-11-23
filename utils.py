@@ -4,6 +4,7 @@ import numpy as np
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
 import pandas as pd
+import pickle
 
 def mps2kph(mps : float) -> float:
     return 3.6 * mps
@@ -153,7 +154,20 @@ def describe_as_latex(df : pd.DataFrame) -> str:
 	msg += "\\end{tabular}\n"
 
 	print(msg)
-
-
-
 	return
+
+def save(data, fn : str):
+	"""
+	Saves a python @data to file @fn
+	"""
+	with open(fn, "wb") as f:
+		pickle.dump(data, f)
+	return
+
+def load(fn : str):
+	"""
+	Loads data from filename @fn
+	"""
+	with open(fn, "rb") as f:
+		data = pickle.load(f)
+	return data

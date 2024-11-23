@@ -1,7 +1,8 @@
 
 
-seed = 12342
+seed = 56327
 n_tests = 10_000
+n_boundary_samples = 500
 
 class RGBA:
     light_blue = (12,158,236,255)
@@ -39,7 +40,7 @@ class vehicle_types:
 class traci:
     default_lane_change_behavior = 1621
     class gamma_cross:
-        dut_route = "eb_right"    
+        dut_route = "eb_left"    
         turn_lane_length = 200
         dut_type = vehicle_types.aggresive
         net_file = "sumo_config/gamma_cross/cross3l.net.xml"
