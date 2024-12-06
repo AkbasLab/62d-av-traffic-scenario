@@ -1,7 +1,6 @@
 from collision_model import CollisionDataLoader, CollisionModel
 from lime_ex import LimeAnalyzer
 from shap_ex import ShapAnalyzer
-import pandas as pd
 
 EXAMPLE_PARAM_DATA = "out/mc/mc_gamma_cross_eb_left_params.feather"
 EXAMPLE_SCORE_DATA = "out/mc/mc_gamma_cross_eb_left_scores.feather"

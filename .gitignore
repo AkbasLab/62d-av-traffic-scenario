@@ -1,4 +1,12 @@
 # virtual env
 env/
+.python-version
+
+# output
+out/temp
+out/explainability
 out/*.png
 out/*.html
+
+# cache
+__pycache__/
