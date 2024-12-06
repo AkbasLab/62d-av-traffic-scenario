@@ -4,9 +4,7 @@ env/
 
 # output
 out/temp
-out/explainability
-out/*.png
-out/*.html
+*.csv
 
 # cache
 __pycache__/

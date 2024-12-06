@@ -22,35 +22,36 @@ class CollisionDataLoader:
         return self.scores_df[column_to_use].apply(len)
 
     @staticmethod
-    def combine_datasets_with_movement(dataset_paths: list[tuple[str, str, str]],
-                                     column_to_use: str = "collisions") -> pd.DataFrame:
+    def combine_datasets(dataset_paths: list[tuple[str, str, str]],
+                        column_to_use: str = "collisions",
+                        add_movement_vars: bool = False) -> pd.DataFrame:
         full_df = pd.DataFrame()
 
         for params_path, scores_path, movement_type in dataset_paths:
             loader = CollisionDataLoader(params_path, scores_path)
-
             temp_df = loader.params_df.copy()
-            temp_df['movement_type'] = movement_type
 
             scenarios = loader.get_scenario_columns()
             temp_df['run_red_light'] = scenarios['run_red_light']
             temp_df['side_move'] = scenarios['side_move']
-
             temp_df['num_collisions'] = loader.get_num_collisions(column_to_use)
+
+            if add_movement_vars:
+                temp_df['movement_type'] = movement_type
 
             full_df = pd.concat([full_df, temp_df], axis=0, ignore_index=True)
 
-        # One-hot encode movement type
-        movement_dummies = pd.get_dummies(full_df['movement_type'], prefix='movement')
+        if add_movement_vars:
+            # one hot encode movement type
+            movement_dummies = pd.get_dummies(full_df['movement_type'], prefix='movement')
+            # Add encoded columns and drop original
+            full_df = pd.concat([
+                full_df.drop('movement_type', axis=1),
+                movement_dummies
+            ], axis=1)
 
-        # Create final dataframe
-        final_df = pd.concat([
-            full_df.drop('movement_type', axis=1),  # Original data without movement_type
-            movement_dummies,                        # One hot encoded movement types
-        ], axis=1)
-
-        # Shuffle
-        return final_df.sample(frac=1, random_state=42).reset_index(drop=True)
+        # shuffle
+        return full_df.sample(frac=1).reset_index(drop=True)
 
     @staticmethod
     def split_data(full_df: pd.DataFrame, test_size: float = 0.2, random_state: int | None = None):

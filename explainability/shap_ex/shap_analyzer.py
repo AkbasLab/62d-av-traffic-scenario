@@ -3,22 +3,58 @@ import shap
 import os
 import time
 import numpy as np
+import pandas as pd
 
 class ShapAnalyzer:
     def __init__(self, model, background_data):
         self.model = model
-        # Convert background data to numpy array if it's a pandas DataFrame
         if hasattr(background_data, 'values'):
             background_data = background_data.values
-        # Use TreeExplainer specifically for CatBoost
         self.explainer = shap.TreeExplainer(model)
+
+    def analyze_global_importance(self, X, output_dir):
+        """Create global SHAP importance plot"""
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        print("\nCalculating global SHAP values...")
+        start_time = time.perf_counter()
+
+        if hasattr(X, 'values'):
+            X_values = X.values
+        else:
+            X_values = X
+        shap_values = self.explainer.shap_values(X_values)
+
+        mean_abs_shap = np.abs(shap_values).mean(0)
+        feature_importance = pd.DataFrame({
+            'feature': X.columns,
+            'importance': mean_abs_shap
+        })
+        feature_importance = feature_importance.sort_values('importance', ascending=False)
+
+        plt.figure(figsize=(10, 6))
+        shap.summary_plot(
+            shap_values,
+            X,
+            plot_type="bar",
+            show=False
+        )
+        plt.title("Global SHAP Feature Importance")
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, "global_shap_waterfall.pdf"),
+                    bbox_inches='tight', dpi=300)
+        plt.close()
+
+        analysis_time = time.perf_counter() - start_time
+        print(f"Global SHAP analysis took {analysis_time:.4f} seconds")
 
     def analyze_specific_scenario(self, X, y, scenario_idx, output_dir):
         """Analyze a specific scenario using SHAP"""
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        # Time the SHAP value computation
+        # time shap completion
         start_analysis = time.perf_counter()
         instance = X.loc[[scenario_idx]]
         if hasattr(instance, 'values'):
@@ -26,7 +62,7 @@ class ShapAnalyzer:
         shap_values = self.explainer.shap_values(instance)
         analysis_time = time.perf_counter() - start_analysis
 
-        # Time the plotting
+        # time spent plotting
         start_plot = time.perf_counter()
         plt.figure()
         shap.waterfall_plot(
@@ -61,7 +97,7 @@ class ShapAnalyzer:
         print(f"\nAnalyzing {len(red_light_cases)} red light cases")
 
         for idx in red_light_cases.index:
-            # Analysis time
+            # time shap completion
             start_analysis = time.perf_counter()
             instance = X.loc[[idx]]
             if hasattr(instance, 'values'):
@@ -70,7 +106,7 @@ class ShapAnalyzer:
             analysis_time = time.perf_counter() - start_analysis
             analysis_total += analysis_time
 
-            # Plot time
+            # time spent plotting
             start_plot = time.perf_counter()
             plt.figure()
             shap.waterfall_plot(
@@ -111,7 +147,7 @@ class ShapAnalyzer:
         print(f"\nAnalyzing {len(side_move_cases)} side move cases")
 
         for idx in side_move_cases.index:
-            # Analysis time
+            # time shap completion
             start_analysis = time.perf_counter()
             instance = X.loc[[idx]]
             if hasattr(instance, 'values'):
@@ -120,7 +156,7 @@ class ShapAnalyzer:
             analysis_time = time.perf_counter() - start_analysis
             analysis_total += analysis_time
 
-            # Plot time
+            # time spent plotting
             start_plot = time.perf_counter()
             plt.figure()
             shap.waterfall_plot(
