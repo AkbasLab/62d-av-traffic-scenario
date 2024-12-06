@@ -31,8 +31,8 @@ class Runner:
         self._brrt_exp_history = []
         self._n_tests = 0
 
-        self.target_side_move()
-
+        self.target_run_red_light()
+        # self.target_side_move()
         # self.monte_carlo()
 
         self.traci_client.close()
@@ -116,6 +116,41 @@ class Runner:
         seq_exp.params_history.to_feather("out/mc_%s_params.feather" % prefix)
         seq_exp.score_history.to_feather("out/mc_%s_scores.feather" % prefix)
 
+        return
+
+    def target_run_red_light(self):
+        self._tsc = lambda s : s["run red light"] != -1
+        
+        print()
+
+        i = 0
+        while True:      
+            print("\n:: ENVELOPE %d ::\n" % i)
+            i += 1 
+            self.find_and_explore_one_envelope(
+                n_boundary_samples = constants.n_boundary_samples
+            )
+            if self.n_tests >= constants.n_tests:
+                break
+            continue
+
+        print()
+
+        self.flatten_tests()
+
+        pd.set_option('display.max_columns', None)
+        print(self.scores_df)
+
+        type_map = {
+            constants.vehicle_types.aggresive : "a",
+            constants.vehicle_types.conservative : "c"
+        }
+        c = type_map[constants.traci.gamma_cross.dut_type]
+        prefix = "gamma_cross_%s_%s" % (c ,
+            constants.traci.gamma_cross.dut_route)
+
+        self.params_df.to_feather("out/run_red_light_%s_params.feather" % prefix)
+        self.scores_df.to_feather("out/run_red_light_%s_scores.feather" % prefix)
         return
 
     def target_side_move(self):

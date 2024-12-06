@@ -1,6 +1,6 @@
 
 
-seed = 56327
+seed = 4827
 n_tests = 10_000
 n_boundary_samples = 500
 
