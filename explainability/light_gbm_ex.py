@@ -5,7 +5,6 @@ from sklearn.model_selection import GridSearchCV
 from lightgbm import LGBMRegressor
 import time
 
-# Define paths for all datasets with their movement types
 DATASETS = [
     ("out/mc/mc_gamma_cross_eb_left_params.feather",
      "out/mc/mc_gamma_cross_eb_left_scores.feather",
@@ -19,12 +18,10 @@ DATASETS = [
 ]
 
 def main():
-    # Load and combine datasets
     print("Loading and combining datasets...")
     data_df = CollisionDataLoader.combine_datasets_with_movement(DATASETS)
     print(f"Combined dataset shape: {data_df.shape}")
 
-    # Initialize setup
     print("Setting up experiment...")
     s = setup(
         data=data_df,
@@ -38,7 +35,6 @@ def main():
         verbose=False
     )
 
-    # Define parameter grid
     param_grid = {
         'num_leaves': [31, 63],
         'max_depth': [5, 7],
@@ -50,7 +46,6 @@ def main():
         'min_split_gain': [0.1]
     }
 
-    # Create base model
     model = LGBMRegressor(
         random_state=42,
         n_jobs=-1,
@@ -58,7 +53,6 @@ def main():
         importance_type='gain'
     )
 
-    # Create and train model with grid search
     print("\nStarting Grid Search...")
     grid_search = GridSearchCV(
         estimator=model,
@@ -70,11 +64,9 @@ def main():
         error_score='raise'
     )
 
-    # Get training data
     X = data_df.drop("num_collisions", axis=1)
     y = data_df["num_collisions"]
 
-    # Fit grid search
     grid_search.fit(
         X, y,
         eval_set=[(X, y)],
@@ -82,7 +74,6 @@ def main():
         callbacks=[None]  # Disable early stopping
     )
 
-    # Print results
     print("\nBest parameters:", grid_search.best_params_)
     print("Best R² score:", grid_search.best_score_)
 
@@ -91,7 +82,6 @@ def main():
     best_model = LGBMRegressor(**grid_search.best_params_, random_state=42, n_jobs=-1)
     best_model.fit(X, y)
 
-    # Save model and parameters
     print("\nSaving results...")
     pd.DataFrame([grid_search.best_params_]).to_csv('best_parameters.csv', index=False)
     save_model(best_model, 'best_lightgbm_model')

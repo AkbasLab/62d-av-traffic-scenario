@@ -8,7 +8,6 @@ class CollisionDataLoader:
         self.scores_path = scores_path
         self.params_df = pd.read_feather(self.params_path)
         self.scores_df = pd.read_feather(self.scores_path)
-
         if len(self.params_df) != len(self.scores_df):
             raise ValueError(f"Params ({len(self.params_df)} rows) and Scores ({len(self.scores_df)} rows) must have same length")
 
@@ -24,57 +23,35 @@ class CollisionDataLoader:
     @staticmethod
     def combine_datasets(dataset_paths: list[tuple[str, str, str]],
                         column_to_use: str = "collisions",
-                        add_movement_vars: bool = False) -> pd.DataFrame:
-        full_df = pd.DataFrame()
+                        add_movement_vars: bool = False) -> tuple[pd.DataFrame, pd.DataFrame]:
+        model_df = pd.DataFrame()
+        scenario_df = pd.DataFrame()
 
         for params_path, scores_path, movement_type in dataset_paths:
             loader = CollisionDataLoader(params_path, scores_path)
             temp_df = loader.params_df.copy()
 
-            scenarios = loader.get_scenario_columns()
-            temp_df['run_red_light'] = scenarios['run_red_light']
-            temp_df['side_move'] = scenarios['side_move']
-            temp_df['num_collisions'] = loader.get_num_collisions(column_to_use)
-
+            # Add movement vars to model features
             if add_movement_vars:
                 temp_df['movement_type'] = movement_type
 
-            full_df = pd.concat([full_df, temp_df], axis=0, ignore_index=True)
+            # Keep scenarios separate
+            temp_scenarios = loader.get_scenario_columns()
+
+            # Add num_collisions to both
+            temp_df['num_collisions'] = loader.get_num_collisions(column_to_use)
+            temp_scenarios['num_collisions'] = loader.get_num_collisions(column_to_use)
+
+            model_df = pd.concat([model_df, temp_df], axis=0, ignore_index=True)
+            scenario_df = pd.concat([scenario_df, temp_scenarios], axis=0, ignore_index=True)
 
         if add_movement_vars:
-            # one hot encode movement type
-            movement_dummies = pd.get_dummies(full_df['movement_type'], prefix='movement')
-            # Add encoded columns and drop original
-            full_df = pd.concat([
-                full_df.drop('movement_type', axis=1),
+            movement_dummies = pd.get_dummies(model_df['movement_type'], prefix='movement')
+            model_df = pd.concat([
+                model_df.drop('movement_type', axis=1),
                 movement_dummies
             ], axis=1)
 
-        # shuffle
-        return full_df.sample(frac=1).reset_index(drop=True)
-
-    @staticmethod
-    def split_data(full_df: pd.DataFrame, test_size: float = 0.2, random_state: int | None = None):
-        train_indices, test_indices = train_test_split(
-            full_df.index,
-            test_size=test_size,
-            random_state=random_state
-        )
-
-        exclude_columns = ['num_collisions', 'run_red_light', 'side_move']
-        feature_columns = [col for col in full_df.columns if col not in exclude_columns]
-
-        X_train = full_df.loc[train_indices, feature_columns]
-        X_test = full_df.loc[test_indices, feature_columns]
-        y_train = full_df.loc[train_indices, 'num_collisions']
-        y_test = full_df.loc[test_indices, 'num_collisions']
-
-        scenario_train = full_df.loc[train_indices, ['run_red_light', 'side_move']]
-        scenario_test = full_df.loc[test_indices, ['run_red_light', 'side_move']]
-
-        assert len(X_train) == len(y_train) == len(scenario_train)
-        assert len(X_test) == len(y_test) == len(scenario_test)
-        assert all(X_train.index == scenario_train.index)
-        assert all(X_test.index == scenario_test.index)
-
-        return X_train, X_test, y_train, y_test, scenario_train, scenario_test
+        # Use same shuffle order for both
+        shuffle_idx = np.random.permutation(len(model_df))
+        return model_df.iloc[shuffle_idx].reset_index(drop=True), scenario_df.iloc[shuffle_idx].reset_index(drop=True)

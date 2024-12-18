@@ -1,47 +1,66 @@
 from collision_model import CollisionDataLoader
-from pycaret.regression import *
 import pandas as pd
 import numpy as np
 import time
+from pycaret import regression
 
-# Define paths for all datasets
 DATASETS = [
-    ("out/mc/mc_gamma_cross_eb_left_params.feather", "out/mc/mc_gamma_cross_eb_left_scores.feather"),
-    ("out/mc/mc_gamma_cross_eb_straight_params.feather", "out/mc/mc_gamma_cross_eb_straight_scores.feather"),
-    ("out/mc/mc_gamma_cross_eb_right_params.feather", "out/mc/mc_gamma_cross_eb_right_scores.feather")
+    ("out/mc/mc_gamma_cross_eb_left_params.feather",
+     "out/mc/mc_gamma_cross_eb_left_scores.feather",
+     "left"),
+    ("out/mc/mc_gamma_cross_eb_straight_params.feather",
+     "out/mc/mc_gamma_cross_eb_straight_scores.feather",
+     "straight"),
+    ("out/mc/mc_gamma_cross_eb_right_params.feather",
+     "out/mc/mc_gamma_cross_eb_right_scores.feather",
+     "right")
 ]
-
 Y_COLUMN = "num_collisions"
 
+def log_model_config(model):
+    print("\nModel Configuration:")
+    print(f"Model params: {model.get_params()}")
+    if hasattr(model, 'feature_name_'):
+        print(f"Feature names: {model.feature_name_}")
+
+def log_predictions(predictions):
+    print("\nPrediction Statistics:")
+    print(f"Mean prediction: {predictions['prediction_label'].mean():.4f}")
+    print(f"Min prediction: {predictions['prediction_label'].min():.4f}")
+    print(f"Max prediction: {predictions['prediction_label'].max():.4f}")
+
 def main():
-    # Load and combine all datasets
-    print("Loading and combining datasets...")
-    data_df = CollisionDataLoader.combine_datasets(
+    print("Loading and combining datasets")
+    model_df, scenario_df = CollisionDataLoader.combine_datasets(
         dataset_paths=DATASETS,
         column_to_use="collisions",
-        new_column=Y_COLUMN
+        add_movement_vars=True
     )
 
-    # Print dataset info
-    print(f"\nCombined dataset shape: {data_df.shape}")
-    print(f"Number of features: {data_df.shape[1] - 1}")  # -1 for target
+    print(f"\nCombined dataset shape: {model_df.shape}")
+    print(f"Number of features: {model_df.shape[1] - 1}")  # -1 for target
+    print("\nFeature names:")
+    feature_cols = [col for col in model_df.columns if col != Y_COLUMN]
+    print('\n'.join(feature_cols))
 
-    # Initialize setup with minimal preprocessing
     print("\nSetting up experiment...")
-    s = setup(
-        data=data_df,
-        target=Y_COLUMN,
-        session_id=42,
-        normalize=True,
-        transform_target=False,
-        remove_outliers=False,
-        polynomial_features=False,
-        feature_selection=False,
-        verbose=False,
-        fold=5,  # 5-fold CV
-    )
+    setup_config = {
+        'data': model_df,
+        'target': Y_COLUMN,
+        'session_id': 42,
+        'normalize': True,
+        'transform_target': False,
+        'remove_outliers': False,
+        'polynomial_features': False,
+        'feature_selection': False,
+        'verbose': False,
+        'fold': 5,
+    }
+    print("Setup configuration:")
+    print(setup_config)
 
-    # Rest of your code remains the same...
+    regression.setup(**setup_config)
+
     print("\nPhase 1: Quick Models")
     fast_models = [
         'lr',        # Linear Regression
@@ -49,8 +68,7 @@ def main():
         'dt',        # Decision Tree
         'rf'         # Random Forest
     ]
-
-    best_model = compare_models(
+    best_model = regression.compare_models(
         include=fast_models,
         sort='R2',
         n_select=1,
@@ -58,10 +76,12 @@ def main():
         fold=5,
         verbose=True
     )
-
     print(f"\nBest quick model: {best_model}")
+    print("\nQuick model details:")
+    log_model_config(best_model)
+
     print("\nEvaluating best quick model:")
-    evaluate_model(best_model)
+    regression.evaluate_model(best_model)
 
     print("\nPhase 2: Complex Models")
     complex_models = [
@@ -70,9 +90,8 @@ def main():
         'lightgbm',  # LightGBM
         'catboost'   # CatBoost
     ]
-
     try:
-        best_complex = compare_models(
+        best_complex = regression.compare_models(
             include=complex_models,
             sort='R2',
             n_select=1,
@@ -80,25 +99,32 @@ def main():
             fold=5,
             verbose=True
         )
-
         print(f"\nBest complex model: {best_complex}")
+        print("\nComplex model details:")
+        log_model_config(best_complex)
+
         print("\nEvaluating best complex model:")
-        evaluate_model(best_complex)
-
-        # Choose overall best model
-        if get_model_metrics(best_complex)['R2'] > get_model_metrics(best_model)['R2']:
-            best_model = best_complex
-
+        regression.evaluate_model(best_complex)
+        # Use the best complex model since its already sorted by R^2
+        best_model = best_complex
     except Exception as e:
         print(f"Error in complex models phase: {e}")
-        print("Continuing with best quick model...")
+        print("Continuing with best quick model")
 
-    print("\nMaking predictions...")
-    predictions = predict_model(best_model, data=data_df)
+    print("\nMaking predictions")
+    predictions = regression.predict_model(best_model, data=model_df)
+    log_predictions(predictions)
 
-    print("\nSaving results...")
-    save_model(best_model, 'best_collision_model')
+    print("\nSaving results")
+    regression.save_model(best_model, 'best_collision_model')
     predictions.to_csv('collision_predictions.csv', index=False)
+
+    print("\nFinal model configuration:")
+    log_model_config(best_model)
+
+    print("\nPyCaret internal settings:")
+    pycaret_config = regression.get_config('X_train').head()
+    print(f"Training data sample:\n{pycaret_config}")
 
     return best_model, predictions
 

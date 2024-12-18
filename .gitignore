@@ -8,3 +8,7 @@ out/temp
 
 # cache
 __pycache__/
+
+# local model attributes
+*.pkl
+*.log

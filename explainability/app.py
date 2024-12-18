@@ -4,11 +4,9 @@ from shap_ex import ShapAnalyzer
 import numpy as np
 import pandas as pd
 import os
-from sklearn.model_selection import RandomizedSearchCV, train_test_split
-from scipy.stats import randint, uniform
-from lightgbm import LGBMRegressor
-import lightgbm
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+#from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.model_selection import train_test_split
+from pycaret import regression
 
 DATASETS = [
     ("out/mc/mc_gamma_cross_eb_left_params.feather",
@@ -26,39 +24,8 @@ OUTPUT_DIR = "out/explainability"
 Y_COLUMN = "num_collisions"
 RANDOM_STATE = None
 
-class BestScoreCallback:
-    def __init__(self):
-        self.best_score = float('inf')
-        self.best_iteration = 0
-
-    def __call__(self, env):
-        score = env.evaluation_result_list[0][2]
-        iteration = env.iteration
-
-        if score < self.best_score:
-            self.best_score = score
-            self.best_iteration = iteration
-            print(f"\nNew best score at iteration {iteration}: {score:.4f}")
-
-def evaluate_model_performance(model, X_test, y_test):
-    """Print model performance metrics"""
-    predictions = model.predict(X_test)
-
-    mse = mean_squared_error(y_test, predictions)
-    rmse = np.sqrt(mse)
-    mae = mean_absolute_error(y_test, predictions)
-    r2 = r2_score(y_test, predictions)
-
-    print("\n=== Model Performance ===")
-    print(f"RMSE: {rmse:.4f}")
-    print(f"MAE: {mae:.4f}")
-    print(f"R² Score: {r2:.4f}")
-
-    return predictions
-
-def analyze_random_red_light_scenario(X_train, X_test, scenario_test, y_test, model, test_pred):
-    """Analyze one random red light running case with both LIME and SHAP"""
-    print("\n=== Analyzing Random Red Light Running Case ===")
+def analyze_random_red_light_scenario(X_train, X_test, scenario_test, y_test, model, test_pred, output_dir):
+    print("\n___ Analyzing Random Red Light Running Case ___")
 
     red_light_cases = scenario_test[scenario_test['run_red_light'] == True].index
     if len(red_light_cases) == 0:
@@ -68,11 +35,10 @@ def analyze_random_red_light_scenario(X_train, X_test, scenario_test, y_test, mo
     random_idx = np.random.choice(red_light_cases)
     print(f"Selected red light scenario: {random_idx}")
 
-    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, "red_light")
+    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, "red_light", output_dir)
 
-def analyze_random_side_move_scenario(X_train, X_test, scenario_test, y_test, model, test_pred):
-    """Analyze one random side move case with both LIME and SHAP"""
-    print("\n=== Analyzing Random Side Move Case ===")
+def analyze_random_side_move_scenario(X_train, X_test, scenario_test, y_test, model, test_pred, output_dir):
+    print("\n___ Analyzing Random Side Move Case ___")
 
     side_move_cases = scenario_test[scenario_test['side_move'] == True].index
     if len(side_move_cases) == 0:
@@ -82,11 +48,10 @@ def analyze_random_side_move_scenario(X_train, X_test, scenario_test, y_test, mo
     random_idx = np.random.choice(side_move_cases)
     print(f"Selected side move scenario: {random_idx}")
 
-    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, "side_move")
+    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, "side_move", output_dir)
 
-def analyze_random_normal_scenario(X_train, X_test, scenario_test, y_test, model, test_pred):
-    """Analyze one random normal case"""
-    print("\n=== Analyzing Random Normal Case ===")
+def analyze_random_normal_scenario(X_train, X_test, scenario_test, y_test, model, test_pred, output_dir):
+    print("\n___ Analyzing Random Normal Case ___")
 
     normal_cases = scenario_test[
         (scenario_test['run_red_light'] == False) &
@@ -100,120 +65,88 @@ def analyze_random_normal_scenario(X_train, X_test, scenario_test, y_test, model
     random_idx = np.random.choice(normal_cases)
     print(f"Selected normal scenario: {random_idx}")
 
-    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, "normal")
+    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, "normal", output_dir)
 
-def analyze_scenario(X_train, X_test, y_test, test_pred, model, scenario_idx, scenario_type):
-    """Analyze a specific scenario with both LIME and SHAP"""
+def analyze_scenario(X_train, X_test, y_test, test_pred, model, scenario_idx, scenario_type, output_dir):
+    lime_dir = os.path.join(output_dir, "local", "lime", scenario_type)
+    shap_dir = os.path.join(output_dir, "local", "shap", scenario_type)
+
     lime_analyzer = LimeAnalyzer(X_train, model, y=Y_COLUMN)
     lime_analyzer.analyze_specific_scenario(
         X_test, y_test, test_pred, scenario_idx,
-        output_dir=f"{OUTPUT_DIR}/lime/{scenario_type}",
+        output_dir=lime_dir,
         verbose=True
     )
 
     shap_analyzer = ShapAnalyzer(model, X_train)
     shap_analyzer.analyze_specific_scenario(
         X_test, y_test, scenario_idx,
-        output_dir=f"{OUTPUT_DIR}/shap/{scenario_type}"
+        output_dir=shap_dir
     )
 
 def main():
-    print("Loading and combining datasets...")
-    full_df = CollisionDataLoader.combine_datasets(DATASETS, add_movement_vars=True)
+    print("Loading and combining datasets")
+    model_df, scenario_df = CollisionDataLoader.combine_datasets(DATASETS, add_movement_vars=True)
 
-    print(f"Dataset shape: {full_df.shape}")
+    print(f"Dataset shape: {model_df.shape}")
     print("\nFeature names:")
-    feature_cols = [col for col in full_df.columns if col not in ['num_collisions', 'run_red_light', 'side_move']]
+    feature_cols = [col for col in model_df.columns if col != 'num_collisions']
     print('\n'.join(feature_cols))
 
-    X_train, X_test, y_train, y_test, scenario_train, scenario_test = CollisionDataLoader.split_data(
-        full_df,
+    # First run with all features
+    all_features_dir = os.path.join(OUTPUT_DIR, "all_features")
+    print("\n___ Running analysis with all features ___")
+
+    print("\nSetting up PyCaret environment")
+    regression.setup(
+        data=model_df,
+        target=Y_COLUMN,
+        session_id=42,
+        normalize=True,
+        transform_target=False,
+        remove_outliers=False,
+        polynomial_features=False,
+        feature_selection=False,
+        fold=5,
+        verbose=False
+    )
+
+    print("\nTraining LightGBM model with all features")
+    full_model = regression.create_model('lightgbm')
+
+    if not hasattr(full_model, 'predict'):
+        raise ValueError("Extracted model doesn't have specified prediction method")
+
+    # split data (but keep scenarios aligned)
+    train_indices, test_indices = train_test_split(
+        model_df.index,
         test_size=0.2,
         random_state=RANDOM_STATE
     )
 
-    X_train_search, X_val_search, y_train_search, y_val_search = train_test_split(
-        X_train, y_train, test_size=0.2, random_state=RANDOM_STATE
-    )
+    # split model features
+    X_train = model_df.loc[train_indices, feature_cols]
+    X_test = model_df.loc[test_indices, feature_cols]
+    y_test = model_df.loc[test_indices, 'num_collisions']
+    scenario_test = scenario_df.loc[test_indices]
 
-    param_distributions = {
-        'learning_rate': uniform(0.01, 0.3),
-        'n_estimators': randint(100, 1000),
-        'max_depth': randint(3, 10),
-        'num_leaves': randint(20, 100),
-        'min_child_samples': randint(10, 50),
-        'subsample': uniform(0.6, 0.4),
-        'colsample_bytree': uniform(0.6, 0.4),
-        'reg_alpha': uniform(0, 2),
-        'reg_lambda': uniform(0, 2),
-        'min_split_gain': uniform(0, 1),
-        'boosting_type': ['gbdt', 'dart']
-    }
+    print("\n___ Full Model Evaluation ___")
+    test_pred = full_model.predict(regression.get_config('X_test'))
 
-    random_search = RandomizedSearchCV(
-        estimator=LGBMRegressor(
-            random_state=RANDOM_STATE,
-            n_jobs=-1,
-            objective='regression',
-            metric='rmse',
-            verbosity=-1
-        ),
-        param_distributions=param_distributions,
-        n_iter=100,
-        cv=5,
-        scoring='r2',
-        random_state=RANDOM_STATE,
-        verbose=2
-    )
 
-    print("\nStarting Random Search...")
-    random_search.fit(X_train_search, y_train_search)
+    print("\nCalculating feature importance")
+    if hasattr(full_model, 'feature_name_'):
+        feature_names = full_model.feature_name_
+    else:
+        feature_names = feature_cols
 
-    print("\nBest parameters found:")
-    for param, value in random_search.best_params_.items():
-        print(f"{param}: {value}")
-    print(f"Best R² score: {random_search.best_score_:.4f}")
-
-    # Save random search results
-    search_results = pd.DataFrame(random_search.cv_results_)
-    os.makedirs(os.path.join(OUTPUT_DIR, "lightgbm", "tuning"), exist_ok=True)
-    search_results.to_csv(
-        os.path.join(OUTPUT_DIR, "lightgbm", "tuning", "random_search_results.csv"),
-        index=False
-    )
-
-    # Train final model with best parameters and early stopping (early stopping doesnt work atm, check warning)
-    print("\nTraining final model with best parameters...")
-    best_model = LGBMRegressor(
-        **random_search.best_params_,
-        random_state=RANDOM_STATE,
-        n_jobs=-1
-    )
-
-    best_score_tracker = BestScoreCallback()
-    best_model.fit(
-        X_train,
-        y_train,
-        eval_metric='rmse',
-        eval_set=[(X_test, y_test)],
-        callbacks=[
-            lightgbm.early_stopping(stopping_rounds=50),
-            lightgbm.log_evaluation(period=100),
-            best_score_tracker
-        ],
-    )
-
-    print(f"\nBest score achieved: {best_score_tracker.best_score:.4f}")
-    print(f"At iteration: {best_score_tracker.best_iteration}")
-
-    test_pred = evaluate_model_performance(best_model, X_test, y_test)
-
-    #lightgbm default features
     importance = pd.DataFrame({
-        'feature': feature_cols,
-        'importance': best_model.feature_importances_
+        'feature': feature_names,
+        'importance': full_model.feature_importances_
     })
-    output_path = os.path.join(OUTPUT_DIR, "lightgbm", "global")
+
+    # save
+    output_path = os.path.join(all_features_dir, "global", "lightgbm")
     os.makedirs(output_path, exist_ok=True)
     importance.to_csv(
         os.path.join(output_path, "lightgbm_global_feature_ranking.txt"),
@@ -222,20 +155,94 @@ def main():
         float_format='%.4f'
     )
 
-    print("\nTop 10 important features:")
-    print(importance.sort_values('importance', ascending=False).head(10))
+    # Sort and get top 30
+    importance_sorted = importance.sort_values('importance', ascending=False)
+    print("\nTop 30 features:")
+    print(importance_sorted.head(30))
+    top_30_features = importance_sorted.head(30)['feature'].tolist()
 
-    # global shap first
-    shap_analyzer = ShapAnalyzer(best_model, X_train)
+    # full model
+    print("\nRunning full model SHAP analysis...")
+    shap_analyzer = ShapAnalyzer(full_model, X_train)
     shap_analyzer.analyze_global_importance(
         X_train,
-        output_dir=f"{OUTPUT_DIR}/shap/global"
+        output_dir=os.path.join(all_features_dir, "global", "shap")
     )
 
-    # then shap/lime scenarios
-    analyze_random_red_light_scenario(X_train, X_test, scenario_test, y_test, best_model, test_pred)
-    analyze_random_side_move_scenario(X_train, X_test, scenario_test, y_test, best_model, test_pred)
-    analyze_random_normal_scenario(X_train, X_test, scenario_test, y_test, best_model, test_pred)
+    print("\nAnalyzing full model scenarios...")
+    analyze_random_red_light_scenario(
+        X_train, X_test, scenario_test, y_test, full_model, test_pred, all_features_dir
+    )
+    analyze_random_side_move_scenario(
+        X_train, X_test, scenario_test, y_test, full_model, test_pred, all_features_dir
+    )
+    analyze_random_normal_scenario(
+        X_train, X_test, scenario_test, y_test, full_model, test_pred, all_features_dir
+    )
+
+    # train w/ top 30
+    top_30_dir = os.path.join(OUTPUT_DIR, "top_30")
+    print("\n=== Running analysis with top 30 features ===")
+
+    print("\nSetting up PyCaret environment for reduced feature set...")
+    regression.setup(
+        data=model_df.loc[:, top_30_features + ['num_collisions']],
+        target=Y_COLUMN,
+        session_id=43,
+        normalize=True,
+        transform_target=False,
+        remove_outliers=False,
+        polynomial_features=False,
+        feature_selection=False,
+        fold=5,
+        verbose=False
+    )
+
+    print("\nTraining LightGBM model with top 30 features")
+    reduced_model = regression.create_model('lightgbm')
+
+    # reduce features
+    X_train_reduced = X_train[top_30_features]
+    X_test_reduced = X_test[top_30_features]
+
+    print("\n___ Reduced Model Evaluation ___")
+    test_pred_reduced = reduced_model.predict(regression.get_config('X_test'))
+
+    # save reduced
+    importance_reduced = pd.DataFrame({
+        'feature': top_30_features,
+        'importance': reduced_model.feature_importances_
+    })
+
+    output_path = os.path.join(top_30_dir, "global", "lightgbm")
+    os.makedirs(output_path, exist_ok=True)
+    importance_reduced.to_csv(
+        os.path.join(output_path, "lightgbm_global_feature_ranking.txt"),
+        index=False,
+        sep='\t',
+        float_format='%.4f'
+    )
+
+    print("\nReduced model feature importance:")
+    print(importance_reduced.sort_values('importance', ascending=False))
+
+    print("\nRunning reduced model SHAP analysis")
+    shap_analyzer = ShapAnalyzer(reduced_model, X_train_reduced)
+    shap_analyzer.analyze_global_importance(
+        X_train_reduced,
+        output_dir=os.path.join(top_30_dir, "global", "shap")
+    )
+
+    print("\nAnalyzing reduced model scenarios")
+    analyze_random_red_light_scenario(
+        X_train_reduced, X_test_reduced, scenario_test, y_test, reduced_model, test_pred_reduced, top_30_dir
+    )
+    analyze_random_side_move_scenario(
+        X_train_reduced, X_test_reduced, scenario_test, y_test, reduced_model, test_pred_reduced, top_30_dir
+    )
+    analyze_random_normal_scenario(
+        X_train_reduced, X_test_reduced, scenario_test, y_test, reduced_model, test_pred_reduced, top_30_dir
+    )
 
 if __name__ == "__main__":
     main()
