@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-04 17:12:26 by Eclipse SUMO sumo Version 1.20.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-12-15 19:42:21 by Eclipse SUMO sumo Version 1.21.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="sumo_config/gamma_cross/cross3l.net.xml"/>
@@ -39,10 +39,10 @@
         <delay value="50"/>
     </gui_only>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="1.20.0" time="0.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="1.21.0" time="0.00" type="micro">
     <route id="eb_left" state="1" edges="1fi 1si 4o"/>
     <route id="eb_right" state="1" edges="1fi 1si 3o"/>
     <route id="eb_straight" state="1" edges="1fi 1si 2o"/>

@@ -31,8 +31,8 @@ class Runner:
         self._brrt_exp_history = []
         self._n_tests = 0
 
-        self.target_run_red_light()
-        # self.target_side_move()
+        # self.target_run_red_light()
+        self.target_side_move()
         # self.monte_carlo()
 
         self.traci_client.close()
@@ -184,8 +184,10 @@ class Runner:
         prefix = "gamma_cross_%s_%s" % (c ,
             constants.traci.gamma_cross.dut_route)
 
-        self.params_df.to_feather("out/side_move_%s_params.feather" % prefix)
-        self.scores_df.to_feather("out/side_move_%s_scores.feather" % prefix)
+        self.params_df.to_feather(
+            "%s/side_move_%s_params.feather" % (constants.output_dir, prefix))
+        self.scores_df.to_feather(
+            "%s/side_move_%s_scores.feather" % (constants.output_dir, prefix))
 
         return
     

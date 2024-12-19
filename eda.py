@@ -3,6 +3,7 @@ warnings.filterwarnings("ignore")
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
 import numpy as np
 
 import utils
@@ -13,15 +14,162 @@ pd.set_option('display.max_columns', None)
 
 class EDA:
     def __init__(self):
-        direction = "right"
-        self.params_df = pd.read_feather(
-                "out/mc/mc_gamma_cross_a_eb_%s_params.feather" % direction)
-        self.scores_df = pd.read_feather(
-            "out/mc/mc_gamma_cross_a_eb_%s_scores.feather" % direction)
-        
-        self.mc_stats()
+        self.load_data()
+        self.count_side_moves()
+        self.count_run_red_light()
+
+        for dir in constants.directions:
+            for tar in [constants.MONTE_CARLO, constants.SIDE_MOVE]:
+                df = self.all_data[dir][tar][constants.SCORES]
+                n = df[df.index == len(df.index)-1]["n side move"].iloc[0]
+                print(dir, tar, n)
+
+        feature = "n run red light"
+        plt.clf()
+        fig = plt.figure(figsize=(12,3))
+        ax = fig.gca()
+        self.feature_comparison(
+            feature,
+            targets = [constants.RUN_RED_LIGHT, constants.MONTE_CARLO],
+            ax = ax
+        )
+        ax.set_ylabel("# run red light = True")
+        plt.savefig(
+            "out/graphs/%s_comparison.pdf" % feature, 
+            bbox_inches="tight"
+        )
+
+        feature = "n side move"
+        plt.clf()
+        fig = plt.figure(figsize=(12,3))
+        ax = fig.gca()
+        self.feature_comparison(
+            feature,
+            targets = [constants.SIDE_MOVE, constants.MONTE_CARLO],
+            ax = ax
+        )
+        ax.set_ylabel("# side move = True")
+        plt.savefig(
+            "out/graphs/%s_comparison.pdf" % feature, 
+            bbox_inches="tight"
+        )
         return
     
+    def feature_comparison(self, 
+            feature : str, 
+            targets : list[str], 
+            ax : Axes = None
+        ):
+        """
+        Compare Side Move tests with Monte Carlo
+        """
+        all_data = self.all_data.copy()
+
+
+        """
+        Prepare Graph
+        """
+        if ax is None:
+            plt.clf()
+            fig = plt.figure(figsize=(8,3))
+            ax = fig.gca()
+        
+        ax.set_xlabel("# tests")
+        ax.set_ylabel("# %s" % feature)
+        ax.set_xticks(range(0,10_001,1000))
+        ax.set_xlim([0,10_000])
+        ax.grid(alpha=.5)
+
+        """
+        Count side moves
+        """
+        max_y = 0
+        for target in targets:
+            for dir in constants.directions:
+                # Collect Side Move data
+                df = all_data[dir][target][constants.SCORES]
+
+                # Plot
+                x = df.index.tolist()
+                y = df[feature]
+                max_y = max(max_y, y.max())
+                ax.plot(
+                    x,y, 
+                    linestyle = constants.graphics.linestyles[dir],
+                    marker = constants.graphics.markers[target],
+                    markevery = 1000,
+                    c = "black",
+                    label="%s %s" % (constants.graphics.labels[target], dir)
+                )
+                # break
+                continue
+            continue
+        
+        """
+        Other Graphics
+        """
+        ax.set_yticks(range(0,max_y+1,1000))
+        ax.set_ylim([0,max_y])
+        ax.legend()
+        
+
+        
+        return ax
+    
+    def count_run_red_light(self):
+        for dir in constants.directions:
+            for tar in constants.targets:
+                df = self.all_data[dir][tar][constants.SCORES]
+                n_run_red_light = []
+                n = 0
+                for flag in df["run red light"]:
+                    if flag:
+                        n += 1
+                    n_run_red_light.append(n)
+                df["n run red light"] = n_run_red_light
+        return
+
+    def count_side_moves(self):
+        for dir in constants.directions:
+            for tar in constants.targets:
+                df = self.all_data[dir][tar][constants.SCORES]
+                n_side_move = []
+                n = 0
+                for time in df["side move"]:
+                    if time >= 0:
+                        n += 1
+                    n_side_move.append(n)
+                df["n side move"] = n_side_move
+
+                # self.all_data[dir][tar][constants.SCORES]
+        return
+
+    def load_data(self):
+        self.all_data = {}
+        for direction in constants.directions:
+            dir_data = {}
+            for target in constants.targets:
+                params_df = pd.read_feather(
+                    "out/%s/%s_gamma_cross_a_eb_%s_params.feather" % (
+                        target, target, direction
+                    )
+                )
+                scores_df = pd.read_feather(
+                    "out/%s/%s_gamma_cross_a_eb_%s_scores.feather" % (
+                        target, target, direction
+                    )
+                )
+                
+                dir_data[target] = {
+                    "params" : params_df,
+                    "scores" : scores_df
+                }
+                continue
+            self.all_data[direction] = dir_data
+            continue
+        return
+
+
     def mc_stats(self):
         df = self.scores_df.copy()
         df = df.round(decimals=5)

@@ -2,7 +2,8 @@
 
 seed = 4827
 n_tests = 10_000
-n_boundary_samples = 500
+n_boundary_samples = 50
+output_dir = "temp"
 
 class RGBA:
     light_blue = (12,158,236,255)
@@ -80,8 +81,37 @@ class traci:
             "" : None
         }
         
-        
-
-
 DUT = "dut"
 FOE = "foe"
+
+BOUNDARY_ADHERENCE_STRATEGY = "bas"
+MONTE_CARLO = "mc"
+
+SIDE_MOVE = "side_move"
+RUN_RED_LIGHT = "run_red_light"
+targets = [MONTE_CARLO, SIDE_MOVE, RUN_RED_LIGHT]
+
+LEFT = "left"
+STRAIGHT = "straight"
+RIGHT = "right"
+directions = [LEFT, STRAIGHT, RIGHT]
+
+PARAMS = "params"
+SCORES = "scores"
+
+class graphics:
+    linestyles = {
+        LEFT : "solid",
+        STRAIGHT : "dotted",
+        RIGHT : "dashed"
+    }
+    markers = {
+        MONTE_CARLO : ".",
+        SIDE_MOVE : "s",
+        RUN_RED_LIGHT : "v"
+    }
+    labels = {
+        MONTE_CARLO : MONTE_CARLO,
+        SIDE_MOVE : BOUNDARY_ADHERENCE_STRATEGY,
+        RUN_RED_LIGHT : BOUNDARY_ADHERENCE_STRATEGY
+    }
