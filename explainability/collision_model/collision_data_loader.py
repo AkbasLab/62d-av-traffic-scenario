@@ -31,14 +31,12 @@ class CollisionDataLoader:
             loader = CollisionDataLoader(params_path, scores_path)
             temp_df = loader.params_df.copy()
 
-            # Add movement vars to model features
+            # add movement vars
             if add_movement_vars:
                 temp_df['movement_type'] = movement_type
 
-            # Keep scenarios separate
+            # keep scenarios separate
             temp_scenarios = loader.get_scenario_columns()
-
-            # Add num_collisions to both
             temp_df['num_collisions'] = loader.get_num_collisions(column_to_use)
             temp_scenarios['num_collisions'] = loader.get_num_collisions(column_to_use)
 
@@ -52,6 +50,53 @@ class CollisionDataLoader:
                 movement_dummies
             ], axis=1)
 
-        # Use same shuffle order for both
+        # use same shuffle order
         shuffle_idx = np.random.permutation(len(model_df))
         return model_df.iloc[shuffle_idx].reset_index(drop=True), scenario_df.iloc[shuffle_idx].reset_index(drop=True)
+
+    @staticmethod
+    def combine_datasets_for_redlight(dataset_paths: list[tuple[str, str, str]]) -> pd.DataFrame:
+        model_df = pd.DataFrame()
+
+        for params_path, scores_path, movement_type in dataset_paths:
+            loader = CollisionDataLoader(params_path, scores_path)
+            temp_df = loader.params_df.copy()
+
+            temp_df['movement_type'] = movement_type
+
+            temp_df['run_red_light'] = loader.scores_df['run red light']
+            model_df = pd.concat([model_df, temp_df], axis=0, ignore_index=True)
+
+        movement_dummies = pd.get_dummies(model_df['movement_type'], prefix='movement')
+        model_df = pd.concat([
+            model_df.drop('movement_type', axis=1),
+            movement_dummies
+        ], axis=1)
+
+        shuffle_idx = np.random.permutation(len(model_df))
+        return model_df.iloc[shuffle_idx].reset_index(drop=True)
+
+    @staticmethod
+    def combine_datasets_for_sidemove(dataset_paths: list[tuple[str, str, str]]) -> pd.DataFrame:
+        model_df = pd.DataFrame()
+
+        for params_path, scores_path, movement_type in dataset_paths:
+            loader = CollisionDataLoader(params_path, scores_path)
+            temp_df = loader.params_df.copy()
+
+            # add movement type and number side_move value
+            temp_df['movement_type'] = movement_type
+            temp_df['side_move'] = loader.scores_df['side move']
+
+            model_df = pd.concat([model_df, temp_df], axis=0, ignore_index=True)
+
+        model_df['side_move'] = model_df['side_move'].apply(lambda x: x >= 0)
+
+        movement_dummies = pd.get_dummies(model_df['movement_type'], prefix='movement')
+        model_df = pd.concat([
+            model_df.drop('movement_type', axis=1),
+            movement_dummies
+        ], axis=1)
+
+        shuffle_idx = np.random.permutation(len(model_df))
+        return model_df.iloc[shuffle_idx].reset_index(drop=True)

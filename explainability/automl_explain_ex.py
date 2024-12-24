@@ -5,14 +5,14 @@ import time
 from pycaret import regression
 
 DATASETS = [
-    ("out/mc/mc_gamma_cross_eb_left_params.feather",
-     "out/mc/mc_gamma_cross_eb_left_scores.feather",
+    ("out/full_data/full_data_gamma_cross_a_eb_left_params.feather",
+     "out/full_data/full_data_gamma_cross_a_eb_left_scores.feather",
      "left"),
-    ("out/mc/mc_gamma_cross_eb_straight_params.feather",
-     "out/mc/mc_gamma_cross_eb_straight_scores.feather",
+    ("out/full_data/full_data_gamma_cross_a_eb_straight_params.feather",
+     "out/full_data/full_data_gamma_cross_a_eb_straight_scores.feather",
      "straight"),
-    ("out/mc/mc_gamma_cross_eb_right_params.feather",
-     "out/mc/mc_gamma_cross_eb_right_scores.feather",
+    ("out/full_data/full_data_gamma_cross_a_eb_right_params.feather",
+     "out/full_data/full_data_gamma_cross_a_eb_right_scores.feather",
      "right")
 ]
 Y_COLUMN = "num_collisions"
@@ -47,7 +47,7 @@ def main():
     setup_config = {
         'data': model_df,
         'target': Y_COLUMN,
-        'session_id': 42,
+        'session_id': None,
         'normalize': True,
         'transform_target': False,
         'remove_outliers': False,
@@ -105,7 +105,7 @@ def main():
 
         print("\nEvaluating best complex model:")
         regression.evaluate_model(best_complex)
-        # Use the best complex model since its already sorted by R^2
+        # use the best complex model since its already sorted by R^2
         best_model = best_complex
     except Exception as e:
         print(f"Error in complex models phase: {e}")

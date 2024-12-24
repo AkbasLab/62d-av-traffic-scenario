@@ -49,7 +49,7 @@ class ShapAnalyzer:
         analysis_time = time.perf_counter() - start_time
         print(f"Global SHAP analysis took {analysis_time:.4f} seconds")
 
-    def analyze_specific_scenario(self, X, y, scenario_idx, output_dir):
+    def analyze_specific_scenario(self, X, y, scenario_idx, output_dir, actual_value=None, predicted_value=None):
         """Analyze a specific scenario using SHAP"""
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -74,10 +74,17 @@ class ShapAnalyzer:
             ),
             show=False
         )
-        plt.title(f"SHAP Values for Scenario {scenario_idx}")
+
+        title = "Local SHAP Feature Importance\n"
+        if actual_value is not None:
+            title += f"Number of collisions: {actual_value}\n"
+        if predicted_value is not None:
+            title += f"Predicted number of collisions: {predicted_value:.2f}"
+
+        plt.title(title)
         plt.tight_layout()
         plt.savefig(os.path.join(output_dir, f"scenario_{scenario_idx}_waterfall.pdf"),
-                   bbox_inches='tight', dpi=300)
+                    bbox_inches='tight', dpi=300)
         plt.close()
         plot_time = time.perf_counter() - start_plot
 
@@ -97,7 +104,6 @@ class ShapAnalyzer:
         print(f"\nAnalyzing {len(red_light_cases)} red light cases")
 
         for idx in red_light_cases.index:
-            # time shap completion
             start_analysis = time.perf_counter()
             instance = X.loc[[idx]]
             if hasattr(instance, 'values'):
@@ -106,7 +112,6 @@ class ShapAnalyzer:
             analysis_time = time.perf_counter() - start_analysis
             analysis_total += analysis_time
 
-            # time spent plotting
             start_plot = time.perf_counter()
             plt.figure()
             shap.waterfall_plot(
@@ -147,7 +152,6 @@ class ShapAnalyzer:
         print(f"\nAnalyzing {len(side_move_cases)} side move cases")
 
         for idx in side_move_cases.index:
-            # time shap completion
             start_analysis = time.perf_counter()
             instance = X.loc[[idx]]
             if hasattr(instance, 'values'):
@@ -156,7 +160,6 @@ class ShapAnalyzer:
             analysis_time = time.perf_counter() - start_analysis
             analysis_total += analysis_time
 
-            # time spent plotting
             start_plot = time.perf_counter()
             plt.figure()
             shap.waterfall_plot(
@@ -183,3 +186,84 @@ class ShapAnalyzer:
         print(f"Average time per case: {total_time/num_cases:.4f} seconds")
         print(f"Total analysis time: {analysis_total:.4f} seconds")
         print(f"Total plotting time: {plot_total:.4f} seconds")
+
+    def analyze_specific_scenario_classification(self, X, y, scenario_idx, output_dir, actual_value=None, predicted_value=None):
+        """Analyze a specific scenario using SHAP for classification tasks"""
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        start_analysis = time.perf_counter()
+        instance = X.loc[[scenario_idx]]
+        if hasattr(instance, 'values'):
+            instance = instance.values
+        shap_values = self.explainer.shap_values(instance)
+        analysis_time = time.perf_counter() - start_analysis
+
+        start_plot = time.perf_counter()
+        plt.figure()
+        shap.waterfall_plot(
+            shap.Explanation(
+                values=shap_values[0],
+                base_values=self.explainer.expected_value,
+                data=instance[0],
+                feature_names=X.columns
+            ),
+            show=False
+        )
+
+        title = "Local SHAP Feature Importance\n"
+        if actual_value is not None:
+            title += f"Run Red Light: {actual_value}\n"
+        if predicted_value is not None:
+            title += f"Predicted Value: {predicted_value}"
+
+        plt.title(title)
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, f"scenario_{scenario_idx}_waterfall.pdf"),
+                    bbox_inches='tight', dpi=300)
+        plt.close()
+        plot_time = time.perf_counter() - start_plot
+
+        print(f"SHAP analysis for scenario {scenario_idx} took {analysis_time + plot_time:.4f} seconds")
+        print(f"(Analysis: {analysis_time:.4f}s, Plotting: {plot_time:.4f}s)")
+
+
+    def analyze_specific_scenario_sidemove(self, X, y, scenario_idx, output_dir, actual_value=None, predicted_value=None):
+        """Analyze a specific scenario using SHAP for side move classification"""
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        start_analysis = time.perf_counter()
+        instance = X.loc[[scenario_idx]]
+        if hasattr(instance, 'values'):
+            instance = instance.values
+        shap_values = self.explainer.shap_values(instance)
+        analysis_time = time.perf_counter() - start_analysis
+
+        start_plot = time.perf_counter()
+        plt.figure()
+        shap.waterfall_plot(
+            shap.Explanation(
+                values=shap_values[0],
+                base_values=self.explainer.expected_value,
+                data=instance[0],
+                feature_names=X.columns
+            ),
+            show=False
+        )
+
+        title = "Local SHAP Feature Importance\n"
+        if actual_value is not None:
+            title += f"Side Move Occurred: {actual_value}\n"
+        if predicted_value is not None:
+            title += f"Predicted Value: {predicted_value}"
+
+        plt.title(title)
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, f"scenario_{scenario_idx}_waterfall.pdf"),
+                    bbox_inches='tight', dpi=300)
+        plt.close()
+        plot_time = time.perf_counter() - start_plot
+
+        print(f"SHAP analysis for scenario {scenario_idx} took {analysis_time + plot_time:.4f} seconds")
+        print(f"(Analysis: {analysis_time:.4f}s, Plotting: {plot_time:.4f}s)")
