@@ -1,0 +1,14 @@
+# virtual env
+env/
+.python-version
+
+# output
+out/temp
+*.csv
+
+# cache
+__pycache__/
+
+# local model attributes
+*.pkl
+*.log
