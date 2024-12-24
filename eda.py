@@ -15,6 +15,148 @@ pd.set_option('display.max_columns', None)
 class EDA:
     def __init__(self):
         self.load_data()
+        
+        # self.compare_targeted_testing()
+        self.stat_summary()
+        return
+    
+    def stat_summary(self):
+        # Collect Data
+        data = []
+        for dir in constants.directions:
+            for tar in constants.targets:
+                df = self.all_data[dir][tar][constants.SCORES].copy()
+                df = df.round(decimals=5)
+
+                df["n collisions"] = df["collisions"].apply(len)
+                df["n foes in inter (on enter)"] = df["foes in inter (on enter)"]\
+                    .apply(len)
+
+                df.drop(
+                    columns=["collisions", "foes in inter (on enter)"], 
+                    inplace=True
+                )
+
+                for feat in ["speed (on enter)", "time (on enter)", "side move"]:
+                    df[feat] = df[feat]\
+                        .apply(lambda x: x if x >= 0 else None)
+                    
+                df["speed (on enter)"].apply(utils.mps2kph)
+                
+                df["run red light"] = df["run red light"].astype(int)
+                df["tl state (on enter)"] = df["tl state (on enter)"].apply(
+                    lambda x : constants.traci.gamma_cross.tl_state[x]
+                )
+                
+                for feat in ["dtc (front)", "ttc (front)", "dtc (inter)", 
+                            "dtc (approach)"]:
+                    df[feat] = df[feat]\
+                        .apply(lambda x: x if x < 9999 else None)
+                    continue
+                # df["tar"] = tar
+                df["dir"] = dir
+                data.append(df.copy())
+                continue
+            continue
+        df = pd.concat(data)
+        df = df.drop(columns=["envelope_id", "stage", "is_target"])
+
+        # Get summary
+        data = []
+        for dir in constants.directions:
+            dir_df = df[df["dir"] == dir].describe().T
+            dir_df["dir"] = dir
+            dir_df["feature"] = dir_df.index
+            dir_df.reset_index(drop=True,inplace=True)
+            data.append( dir_df.copy() )    
+        df = pd.concat(data)
+
+        # Build the table
+        msg = "\\begin{table}[!ht]\n"
+        msg += "\t\\centering\n"
+        msg += "\t\\caption{}\n"
+        msg += "\t\\label{}\n"
+        msg += "\t\\begin{tabular}{rllrr@{.}lr@{.}lr@{.}lr@{.}l}\\toprule\n"
+        msg += "\t\\multicolumn{2}{l}{Feature} & Scenario & Count & "
+        msg += "\\multicolumn{2}{c}{Mean} & \\multicolumn{2}{c}{Std} & "
+        msg += "\\multicolumn{2}{c}{Min} & \\multicolumn{2}{c}{Max} \\\\"
+        msg += "\\midrule\n"
+        
+        # Table Data
+        for index in range(15):
+            idf = df[df.index == index].round(decimals=3)
+            left = idf[idf["dir"] == "left"].iloc[0]
+            straight = idf[idf["dir"] == "straight"].iloc[0]
+            right = idf[idf["dir"] == "right"].iloc[0]
+
+            m = '$M_{%d}$' % index
+            if index in [0,10]:
+                m = "len(%s)" % m
+
+            # feature = "%s & %s" % (m, left["feature"])
+
+            left_stats = self.stats2latex(left)
+            straight_stats = self.stats2latex(straight)
+            right_stats = self.stats2latex(right)
+
+            msg += "%s & %s & Left Turn %s\\\\\n" % \
+                (m, left["feature"], left_stats)
+            msg += "&& Straight Ahead %s\\\\\n" % straight_stats
+            msg += "&& Right Turn %s\\\\\n" % right_stats
+            # print(msg)
+            # quit()
+            continue
+
+        # Table footer
+        msg += "\\bottomrule\n"
+        msg += "\\end{tabular}\n"
+        msg += "\\end{table}"
+
+        
+        # print(df)
+        print(msg)
+        return
+    
+    def stats2latex(self, s : pd.Series) -> str:
+        stats = ["count", "mean", "std", "min", "max"]
+        msg = ""
+        for feat in stats:
+            left , right = str(s[feat]).split(".")
+            left = "{:,}".format(int(left))
+            if feat == "count":
+                msg += "& %s " % left
+            else: 
+                msg += "& %s&%s " % (left,right)
+            continue
+        return msg
+    
+    def compare_targeted_testing(self):
+        self.count_side_moves()
+        self.count_run_red_light()
+        for feat in ["n side move", "n run red light"]:
+            print(":: %s ::" % feat)
+            data = []
+            for dir in constants.directions:
+                for tar in constants.targets:
+                    df = self.all_data[dir][tar][constants.SCORES]
+                    n = df[feat].max()
+                    s = pd.Series({
+                        "dir" : dir,
+                        "tar" : tar,
+                        "n" : n
+                    })
+                    data.append(s)
+                    continue
+                continue
+            feat_df = pd.DataFrame(data)
+            print(feat_df)
+            continue
+
+            
+    
+        return
+    
+    def comparison_graphs(self):
         self.count_side_moves()
         self.count_run_red_light()
 
@@ -54,7 +196,7 @@ class EDA:
             bbox_inches="tight"
         )
         return
-    
+
     def feature_comparison(self, 
             feature : str, 
             targets : list[str], 
