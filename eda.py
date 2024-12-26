@@ -14,12 +14,19 @@ pd.set_option('display.max_columns', None)
 
 class EDA:
     def __init__(self):
-        self.load_data()
-        
+        # self.load_data()
         # self.compare_targeted_testing()
-        self.stat_summary()
+        # self.stat_summary()
+
+        fn = "out/explainability/side_move/global/lightgbm/lightgbm_global_feature_ranking.txt"
+        self.load_lightgbm_features(fn)        
         return
     
+    def load_lightgbm_features(self, fn : str):
+        df = pd.read_csv(fn, sep="\t")
+        print(df)
+        return
+
     def stat_summary(self):
         # Collect Data
         data = []
@@ -71,6 +78,8 @@ class EDA:
             data.append( dir_df.copy() )    
         df = pd.concat(data)
 
+        print(df)
+
         # Build the table
         msg = "\\begin{table}[!ht]\n"
         msg += "\t\\centering\n"
@@ -114,7 +123,7 @@ class EDA:
 
         
         # print(df)
-        print(msg)
+        # print(msg)
         return
     
     def stats2latex(self, s : pd.Series) -> str:
