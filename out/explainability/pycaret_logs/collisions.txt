@@ -1,0 +1,164 @@
+Loading and combining datasets
+
+Combined dataset shape: (90000, 66)
+Number of features: 65
+
+Feature names:
+time0
+eb_left_s0
+eb_straight_s0
+eb_right_s0
+wb_left_s0
+wb_straight_s0
+wb_right_s0
+nb_left_s0
+nb_straight_s0
+nb_right_s0
+sb_left_s0
+sb_straight_s0
+sb_right_s0
+vtype_eb_left1
+vtype_eb_left2
+vtype_eb_left3
+vtype_eb_left4
+vtype_eb_straight1
+vtype_eb_straight2
+vtype_eb_straight3
+vtype_eb_straight4
+vtype_eb_right1
+vtype_eb_right2
+vtype_eb_right3
+vtype_eb_right4
+vtype_wb_left1
+vtype_wb_left2
+vtype_wb_left3
+vtype_wb_left4
+vtype_wb_straight1
+vtype_wb_straight2
+vtype_wb_straight3
+vtype_wb_straight4
+vtype_wb_right1
+vtype_wb_right2
+vtype_wb_right3
+vtype_wb_right4
+vtype_nb_left1
+vtype_nb_left2
+vtype_nb_left3
+vtype_nb_left4
+vtype_nb_straight1
+vtype_nb_straight2
+vtype_nb_straight3
+vtype_nb_straight4
+vtype_nb_right1
+vtype_nb_right2
+vtype_nb_right3
+vtype_nb_right4
+vtype_sb_left1
+vtype_sb_left2
+vtype_sb_left3
+vtype_sb_left4
+vtype_sb_straight1
+vtype_sb_straight2
+vtype_sb_straight3
+vtype_sb_straight4
+vtype_sb_right1
+vtype_sb_right2
+vtype_sb_right3
+vtype_sb_right4
+dut_s0
+movement_left
+movement_right
+movement_straight
+
+Setting up experiment...
+Setup configuration:
+{'data':        time0  eb_left_s0  eb_straight_s0  eb_right_s0  wb_left_s0  ...  dut_s0  num_collisions  movement_left  movement_right  movement_straight
+0       90.0        32.0            50.0         34.0        35.0  ...    50.0               0          False            True              False
+1       90.0        50.0            50.0         50.0         0.0  ...    50.0               0          False            True              False
+2       27.0         4.0            26.0         29.0        28.0  ...    28.0               0           True           False              False
+3       90.0        50.0            50.0         50.0         0.0  ...     0.0               1          False           False               True
+4       86.0        31.0            15.0         13.0        12.0  ...    35.0               0          False            True              False
+...      ...         ...             ...          ...         ...  ...     ...             ...            ...             ...                ...
+89995   85.0        50.0            44.0         35.0        13.0  ...    32.0               0           True           False              False
+89996   60.0        34.0             2.0         14.0        20.0  ...    38.0               0          False            True              False
+89997   34.0        50.0            50.0          0.0        50.0  ...     0.0               0          False            True              False
+89998   15.0         0.0             9.0         29.0        29.0  ...    28.0               1          False           False               True
+89999   10.0         6.0            41.0         10.0        38.0  ...    41.0               1           True           False              False
+
+[90000 rows x 66 columns], 'target': 'num_collisions', 'session_id': None, 'normalize': True, 'transform_target': False, 'remove_outliers': False, 'polynomial_features': False, 'feature_selection': False, 'verbose': False, 'fold': 5}
+
+Phase 1: Quick Models
+                         Model     MAE     MSE    RMSE      R2   RMSLE  \
+rf     Random Forest Regressor  0.3055  0.2411  0.4910  0.4756  0.2915
+ridge         Ridge Regression  0.4572  0.3770  0.6140  0.1802  0.3630
+lr           Linear Regression  0.4572  0.3771  0.6141  0.1799  0.3631
+dt     Decision Tree Regressor  0.3173  0.4294  0.6553  0.0660  0.3703
+
+         MAPE  TT (Sec)
+rf     0.3865     1.986
+ridge  0.5494     0.224
+lr     0.5496     0.280
+dt     0.4614     0.310
+
+Best quick model: RandomForestRegressor(n_jobs=-1, random_state=3923)
+
+Quick model details:
+
+Model Configuration:
+Model params: {'bootstrap': True, 'ccp_alpha': 0.0, 'criterion': 'squared_error', 'max_depth': None, 'max_features': 1.0, 'max_leaf_nodes': None, 'max_samples': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'n_estimators': 100, 'n_jobs': -1, 'oob_score': False, 'random_state': 3923, 'verbose': 0, 'warm_start': False}
+
+Evaluating best quick model:
+interactive(children=(ToggleButtons(description='Plot Type:', icons=('',), options=(('Pipeline Plot', 'pipeline'), ('Hyperparameters', 'parameter'), ('Residuals', 'residuals'), ('Prediction Error', 'error'), ('Cooks Distance', 'cooks'), ('Feature Selection', 'rfe'), ('Learning Curve', 'learning'), ('Manifold Learning', 'manifold'), ('Validation Curve', 'vc'), ('Feature Importance', 'feature'), ('Feature Importance (All)', 'feature_all'), ('Decision Tree', 'tree'), ('Interactive Residuals', 'residuals_interactive')), value='pipeline'), Output()), _dom_classes=('widget-interact',))
+
+Phase 2: Complex Models
+                                    Model     MAE     MSE    RMSE      R2  \
+catboost               CatBoost Regressor  0.3208  0.2434  0.4933  0.4707
+lightgbm  Light Gradient Boosting Machine  0.3348  0.2554  0.5054  0.4446
+xgboost         Extreme Gradient Boosting  0.3286  0.2576  0.5076  0.4397
+gbr           Gradient Boosting Regressor  0.3771  0.2993  0.5470  0.3493
+
+           RMSLE    MAPE  TT (Sec)
+catboost  0.2892  0.4139     1.474
+lightgbm  0.2949  0.4378    84.292
+xgboost   0.2996  0.4168     0.218
+gbr       0.3191  0.4616     2.294
+
+Best complex model: <catboost.core.CatBoostRegressor object at 0x77b39033ae90>
+
+Complex model details:
+
+Model Configuration:
+Model params: {'loss_function': 'RMSE', 'border_count': 254, 'verbose': False, 'task_type': 'CPU', 'random_state': 3923}
+
+Evaluating best complex model:
+interactive(children=(ToggleButtons(description='Plot Type:', icons=('',), options=(('Pipeline Plot', 'pipeline'), ('Hyperparameters', 'parameter'), ('Residuals', 'residuals'), ('Prediction Error', 'error'), ('Cooks Distance', 'cooks'), ('Feature Selection', 'rfe'), ('Learning Curve', 'learning'), ('Manifold Learning', 'manifold'), ('Validation Curve', 'vc'), ('Feature Importance', 'feature'), ('Feature Importance (All)', 'feature_all'), ('Decision Tree', 'tree'), ('Interactive Residuals', 'residuals_interactive')), value='pipeline'), Output()), _dom_classes=('widget-interact',))
+
+Making predictions
+                Model     MAE     MSE    RMSE     R2   RMSLE    MAPE
+0  CatBoost Regressor  0.2951  0.2042  0.4519  0.557  0.2661  0.3829
+
+Prediction Statistics:
+Mean prediction: 0.3881
+Min prediction: -0.6194
+Max prediction: 2.7689
+
+Saving results
+Transformation Pipeline and Model Successfully Saved
+
+Final model configuration:
+
+Model Configuration:
+Model params: {'loss_function': 'RMSE', 'border_count': 254, 'verbose': False, 'task_type': 'CPU', 'random_state': 3923}
+
+PyCaret internal settings:
+Training data sample:
+       time0  eb_left_s0  eb_straight_s0  eb_right_s0  wb_left_s0  ...  vtype_sb_right4  dut_s0  movement_left  movement_right  movement_straight
+11336    9.0        19.0            45.0         33.0        37.0  ...              1.0    32.0           True           False              False
+30207   77.0        17.0            47.0          5.0        23.0  ...              1.0    29.0          False            True              False
+2361    90.0        13.0             1.0         33.0        40.0  ...              0.0    14.0          False           False               True
+52975   27.0         4.0            43.0         30.0        24.0  ...              1.0    10.0          False           False               True
+33460   31.0        40.0             3.0         24.0        37.0  ...              1.0    39.0          False           False               True
+
+[5 rows x 65 columns]
+
+Total execution time: 465.44 seconds

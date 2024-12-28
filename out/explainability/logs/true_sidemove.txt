@@ -1,0 +1,186 @@
+Loading and combining datasets
+Dataset shape: (90000, 66)
+
+Feature names:
+time0
+eb_left_s0
+eb_straight_s0
+eb_right_s0
+wb_left_s0
+wb_straight_s0
+wb_right_s0
+nb_left_s0
+nb_straight_s0
+nb_right_s0
+sb_left_s0
+sb_straight_s0
+sb_right_s0
+vtype_eb_left1
+vtype_eb_left2
+vtype_eb_left3
+vtype_eb_left4
+vtype_eb_straight1
+vtype_eb_straight2
+vtype_eb_straight3
+vtype_eb_straight4
+vtype_eb_right1
+vtype_eb_right2
+vtype_eb_right3
+vtype_eb_right4
+vtype_wb_left1
+vtype_wb_left2
+vtype_wb_left3
+vtype_wb_left4
+vtype_wb_straight1
+vtype_wb_straight2
+vtype_wb_straight3
+vtype_wb_straight4
+vtype_wb_right1
+vtype_wb_right2
+vtype_wb_right3
+vtype_wb_right4
+vtype_nb_left1
+vtype_nb_left2
+vtype_nb_left3
+vtype_nb_left4
+vtype_nb_straight1
+vtype_nb_straight2
+vtype_nb_straight3
+vtype_nb_straight4
+vtype_nb_right1
+vtype_nb_right2
+vtype_nb_right3
+vtype_nb_right4
+vtype_sb_left1
+vtype_sb_left2
+vtype_sb_left3
+vtype_sb_left4
+vtype_sb_straight1
+vtype_sb_straight2
+vtype_sb_straight3
+vtype_sb_straight4
+vtype_sb_right1
+vtype_sb_right2
+vtype_sb_right3
+vtype_sb_right4
+dut_s0
+movement_left
+movement_right
+movement_straight
+
+Setting up PyCaret environment
+
+Training LightGBM model
+      Accuracy     AUC  Recall   Prec.      F1   Kappa     MCC
+Fold
+0       0.8929  0.9568  0.7514  0.8673  0.8052  0.7318  0.7354
+1       0.8876  0.9551  0.7342  0.8640  0.7938  0.7173  0.7218
+2       0.8921  0.9565  0.7369  0.8772  0.8009  0.7277  0.7329
+3       0.8883  0.9540  0.7342  0.8662  0.7948  0.7187  0.7233
+4       0.8897  0.9555  0.7220  0.8822  0.7941  0.7197  0.7265
+Mean    0.8901  0.9556  0.7357  0.8714  0.7978  0.7230  0.7280
+Std     0.0021  0.0010  0.0094  0.0070  0.0045  0.0057  0.0053
+
+___ Model Evaluation ___
+
+Calculating feature importance
+
+Top feature importance ranking:
+               feature  importance
+0                time0         396
+2       eb_straight_s0         146
+61              dut_s0         145
+13      vtype_eb_left1         140
+14      vtype_eb_left2         118
+..                 ...         ...
+58     vtype_sb_right2           5
+43  vtype_nb_straight3           5
+31  vtype_wb_straight3           4
+27      vtype_wb_left3           3
+48     vtype_nb_right4           1
+
+[65 rows x 2 columns]
+
+Running global SHAP analysis...
+
+Calculating global SHAP values...
+Global SHAP analysis took 12.6726 seconds
+
+Analyzing random case where side move occurred and was predicted correctly
+Selected scenario: 9275
+Side move occurred: True
+Predicted side move: True
+
+Analyzing scenario 9275:
+Actual collisions: 1
+Predicted collisions: 1.00
+Analysis took 0.0621 seconds
+
+Top contributing features:
+vtype_eb_right2 <= 0.00: 0.0267
+sb_right_s0 <= 9.00: 0.0229
+sb_straight_s0 > 40.00: 0.0086
+1.00 < vtype_eb_left4 <= 2.00: 0.0080
+1.00 < vtype_nb_straight1 <= 2.00: 0.0078
+0.00 < movement_straight <= 1.00: 0.0075
+0.00 < vtype_eb_straight4 <= 1.00: 0.0066
+nb_straight_s0 > 44.00: 0.0063
+8.00 < wb_straight_s0 <= 24.00: 0.0056
+vtype_wb_straight4 <= 0.00: 0.0055
+1.00 < vtype_nb_straight3 <= 2.00: 0.0050
+vtype_sb_straight1 <= 0.00: 0.0050
+movement_right <= 0.00: 0.0049
+nb_right_s0 > 42.00: 0.0048
+vtype_eb_straight2 <= 0.00: -0.0047
+movement_left <= 0.00: 0.0046
+vtype_sb_right1 <= 0.00: 0.0046
+1.00 < vtype_eb_straight1 <= 2.00: 0.0044
+vtype_eb_left2 <= 0.00: -0.0044
+1.00 < vtype_sb_straight4 <= 2.00: 0.0041
+vtype_nb_left1 <= 0.00: 0.0041
+nb_left_s0 > 43.00: 0.0040
+1.00 < vtype_sb_right4 <= 2.00: -0.0035
+vtype_eb_right4 <= 0.00: 0.0035
+1.00 < vtype_wb_left2 <= 2.00: 0.0034
+1.00 < vtype_sb_straight2 <= 2.00: 0.0033
+vtype_nb_right4 <= 0.00: 0.0031
+1.00 < vtype_wb_straight2 <= 2.00: -0.0031
+vtype_wb_right3 <= 0.00: -0.0030
+time0 > 76.00: 0.0029
+vtype_nb_right3 <= 0.00: 0.0028
+1.00 < vtype_sb_left3 <= 2.00: 0.0027
+1.00 < vtype_nb_left4 <= 2.00: 0.0026
+vtype_wb_right2 <= 0.00: 0.0026
+vtype_wb_straight1 <= 0.00: -0.0025
+eb_straight_s0 <= 9.00: 0.0025
+vtype_wb_left4 <= 0.00: -0.0024
+1.00 < vtype_wb_right1 <= 2.00: 0.0022
+wb_right_s0 > 42.00: -0.0021
+vtype_eb_left3 <= 0.00: -0.0019
+1.00 < vtype_sb_left2 <= 2.00: 0.0018
+vtype_nb_straight2 <= 0.00: -0.0017
+vtype_wb_left1 <= 0.00: 0.0015
+eb_left_s0 > 48.00: -0.0015
+vtype_nb_right2 <= 0.00: -0.0014
+vtype_eb_straight3 <= 0.00: 0.0013
+1.00 < vtype_eb_right1 <= 2.00: 0.0011
+1.00 < vtype_wb_left3 <= 2.00: 0.0009
+1.00 < vtype_wb_right4 <= 2.00: -0.0009
+1.00 < vtype_eb_left1 <= 2.00: -0.0008
+eb_right_s0 > 47.00: 0.0008
+27.00 < dut_s0 <= 44.00: 0.0006
+vtype_nb_left3 <= 0.00: -0.0006
+wb_left_s0 > 40.00: 0.0006
+29.00 < sb_left_s0 <= 46.00: -0.0006
+1.00 < vtype_nb_straight4 <= 2.00: 0.0006
+1.00 < vtype_nb_right1 <= 2.00: 0.0005
+vtype_nb_left2 <= 0.00: 0.0003
+1.00 < vtype_sb_right2 <= 2.00: -0.0002
+vtype_eb_right3 <= 0.00: -0.0002
+1.00 < vtype_sb_straight3 <= 2.00: -0.0002
+1.00 < vtype_sb_left1 <= 2.00: 0.0001
+1.00 < vtype_sb_right3 <= 2.00: -0.0001
+1.00 < vtype_wb_straight3 <= 2.00: 0.0000
+vtype_sb_left4 <= 0.00: 0.0000
+SHAP analysis for scenario 9275 took 0.3049 seconds
+(Analysis: 0.0089s, Plotting: 0.2959s)

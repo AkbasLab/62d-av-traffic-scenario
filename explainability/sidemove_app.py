@@ -46,88 +46,92 @@ def analyze_scenario(X_train, X_test, y_test, test_pred, model, scenario_idx, po
     )
 
 def main():
-   print("Loading and combining datasets")
-   model_df = CollisionDataLoader.combine_datasets_for_sidemove(DATASETS)
+    print("Loading and combining datasets")
+    model_df = CollisionDataLoader.combine_datasets_for_sidemove(DATASETS)
 
-   print(f"Dataset shape: {model_df.shape}")
-   print("\nFeature names:")
-   feature_cols = [col for col in model_df.columns if col != Y_COLUMN]
-   print('\n'.join(feature_cols))
+    print(f"Dataset shape: {model_df.shape}")
+    print("\nFeature names:")
+    feature_cols = [col for col in model_df.columns if col != Y_COLUMN]
+    print('\n'.join(feature_cols))
 
-   print("\nSetting up PyCaret environment")
-   classification.setup(
-       data=model_df,
-       target=Y_COLUMN,
-       session_id=RANDOM_STATE,
-       normalize=True,
-       remove_outliers=False,
-       polynomial_features=False,
-       feature_selection=False,
-       fold=5,
-       verbose=False
-   )
+    print("\nSetting up PyCaret environment")
+    classification.setup(
+        data=model_df,
+        target=Y_COLUMN,
+        session_id=RANDOM_STATE,
+        normalize=True,
+        remove_outliers=False,
+        polynomial_features=False,
+        feature_selection=False,
+        fold=5,
+        verbose=False
+    )
 
-   print("\nTraining LightGBM model")
-   model = classification.create_model('lightgbm')
+    print("\nTraining LightGBM model")
+    model = classification.create_model('lightgbm')
 
-   if not hasattr(model, 'predict'):
-       raise ValueError("Extracted model doesn't have specified prediction method")
+    if not hasattr(model, 'predict'):
+        raise ValueError("Extracted model doesn't have specified prediction method")
 
-   X_train = classification.get_config('X_train')
-   X_test = classification.get_config('X_test')
-   y_test = classification.get_config('y_test')
+    X_train = classification.get_config('X_train')
+    X_test = classification.get_config('X_test')
+    y_test = classification.get_config('y_test')
 
-   print("\n___ Model Evaluation ___")
-   test_pred = model.predict(X_test)
+    print("\n___ Model Evaluation ___")
+    test_pred = model.predict(X_test)
 
-   print("\nCalculating feature importance")
-   if hasattr(model, 'feature_name_'):
-       feature_names = model.feature_name_
-   else:
-       feature_names = feature_cols
+    print("\nCalculating feature importance")
+    if hasattr(model, 'feature_name_'):
+        feature_names = model.feature_name_
+    else:
+        feature_names = feature_cols
 
-   importance = pd.DataFrame({
-       'feature': feature_names,
-       'importance': model.feature_importances_
-   })
+    importance = pd.DataFrame({
+        'feature': feature_names,
+        'importance': model.feature_importances_
+    })
 
-   output_path = os.path.join(OUTPUT_DIR, "global", "lightgbm")
-   os.makedirs(output_path, exist_ok=True)
-   importance.to_csv(
-       os.path.join(output_path, "lightgbm_global_feature_ranking.txt"),
-       index=False,
-       sep='\t',
-       float_format='%.4f'
-   )
+    output_path = os.path.join(OUTPUT_DIR, "global", "lightgbm")
+    os.makedirs(output_path, exist_ok=True)
+    importance.to_csv(
+        os.path.join(output_path, "lightgbm_global_feature_ranking.txt"),
+        index=False,
+        sep='\t',
+        float_format='%.4f'
+    )
 
-   importance_sorted = importance.sort_values('importance', ascending=False)
-   print("\nTop feature importance ranking:")
-   print(importance_sorted)
+    importance_sorted = importance.sort_values('importance', ascending=False)
+    print("\nTop feature importance ranking:")
+    print(importance_sorted)
 
-   print("\nRunning global SHAP analysis...")
-   shap_analyzer = ShapAnalyzer(model, X_train)
-   shap_analyzer.analyze_global_importance(
-       X_train,
-       output_dir=os.path.join(OUTPUT_DIR, "global", "shap")
-   )
+    print("\nRunning global SHAP analysis...")
+    shap_analyzer = ShapAnalyzer(model, X_train)
+    shap_analyzer.analyze_global_importance(
+        X_train,
+        output_dir=os.path.join(OUTPUT_DIR, "global", "shap")
+    )
 
-   print("\nAnalyzing random case where side move occurred...")
-   # Find indices where side move occurred
-   side_move_positions = np.where(y_test)[0]
-   if len(side_move_positions) == 0:
-       print("No side move cases found in test set")
-       return
+    print("\nAnalyzing random case where side move occurred and was predicted correctly")
+    # Find indices where side move occurred AND was predicted correctly
+    side_move_positions = []
+    for position in range(len(y_test)):
+        if y_test[X_test.index[position]] and test_pred[position]:  # Both actual and predicted are True
+            side_move_positions.append(position)
 
-   # Get random side move case
-   position = np.random.choice(side_move_positions)
-   random_idx = X_test.index[position]
-   actual_value = y_test[random_idx]
-   predicted_value = test_pred[position]
-   print(f"Selected scenario: {random_idx}")
-   print(f"Side move occurred: {actual_value}")
-   print(f"Predicted side move: {predicted_value}")
+    if len(side_move_positions) == 0:
+        print("No correctly predicted side move cases found in test set")
+        return
 
-   analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, position)
+    # Get random side move case
+    position = np.random.choice(side_move_positions)
+    random_idx = X_test.index[position]
+    actual_value = y_test[random_idx]
+    predicted_value = test_pred[position]
+    print(f"Selected scenario: {random_idx}")
+    print(f"Side move occurred: {actual_value}")
+    print(f"Predicted side move: {predicted_value}")
+
+    analyze_scenario(X_train, X_test, y_test, test_pred, model, random_idx, position)
 
 if __name__ == "__main__":
-   main()
+    main()

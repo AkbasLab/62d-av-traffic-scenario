@@ -10,12 +10,12 @@ class LimeAnalyzer:
             feature_names=X_train.columns,
             class_names=[y],
             mode='regression',
-            random_state=None
+            random_state=None,
         )
         self.model = model
 
     def analyze_specific_scenario(self, X_test, y_test, test_pred, scenario_idx, output_dir, verbose=False):
-        """Analyze a specific scenario by index"""
+        # Analyze a specific scenario by index
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
@@ -23,7 +23,8 @@ class LimeAnalyzer:
         exp = self.explainer.explain_instance(
             X_test.loc[scenario_idx].values,
             self.model.predict,
-            num_features=30,
+            num_features=65,
+            num_samples=5000
         )
         analysis_time = time.perf_counter() - start_time
 
@@ -56,7 +57,8 @@ class LimeAnalyzer:
             exp = self.explainer.explain_instance(
                 X_test.loc[idx].values,
                 self.model.predict,
-                num_features=30,
+                num_features=65,
+                num_samples=5000
             )
             analysis_time = time.perf_counter() - start_time
             total_analysis_time += analysis_time
@@ -91,7 +93,8 @@ class LimeAnalyzer:
             exp = self.explainer.explain_instance(
                 X_test.loc[idx].values,
                 self.model.predict,
-                num_features=30,
+                num_features=65,
+                num_samples=5000
             )
             analysis_time = time.perf_counter() - start_time
             total_analysis_time += analysis_time

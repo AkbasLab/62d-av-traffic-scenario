@@ -1,0 +1,186 @@
+Loading and combining datasets
+Dataset shape: (90000, 66)
+
+Feature names:
+time0
+eb_left_s0
+eb_straight_s0
+eb_right_s0
+wb_left_s0
+wb_straight_s0
+wb_right_s0
+nb_left_s0
+nb_straight_s0
+nb_right_s0
+sb_left_s0
+sb_straight_s0
+sb_right_s0
+vtype_eb_left1
+vtype_eb_left2
+vtype_eb_left3
+vtype_eb_left4
+vtype_eb_straight1
+vtype_eb_straight2
+vtype_eb_straight3
+vtype_eb_straight4
+vtype_eb_right1
+vtype_eb_right2
+vtype_eb_right3
+vtype_eb_right4
+vtype_wb_left1
+vtype_wb_left2
+vtype_wb_left3
+vtype_wb_left4
+vtype_wb_straight1
+vtype_wb_straight2
+vtype_wb_straight3
+vtype_wb_straight4
+vtype_wb_right1
+vtype_wb_right2
+vtype_wb_right3
+vtype_wb_right4
+vtype_nb_left1
+vtype_nb_left2
+vtype_nb_left3
+vtype_nb_left4
+vtype_nb_straight1
+vtype_nb_straight2
+vtype_nb_straight3
+vtype_nb_straight4
+vtype_nb_right1
+vtype_nb_right2
+vtype_nb_right3
+vtype_nb_right4
+vtype_sb_left1
+vtype_sb_left2
+vtype_sb_left3
+vtype_sb_left4
+vtype_sb_straight1
+vtype_sb_straight2
+vtype_sb_straight3
+vtype_sb_straight4
+vtype_sb_right1
+vtype_sb_right2
+vtype_sb_right3
+vtype_sb_right4
+dut_s0
+movement_left
+movement_right
+movement_straight
+
+Setting up PyCaret environment
+
+Training LightGBM model
+         MAE     MSE    RMSE      R2   RMSLE    MAPE
+Fold
+0     0.3399  0.2622  0.5121  0.4381  0.2975  0.4450
+1     0.3286  0.2446  0.4946  0.4609  0.2886  0.4318
+2     0.3303  0.2527  0.5027  0.4553  0.2923  0.4308
+3     0.3360  0.2522  0.5022  0.4449  0.2964  0.4335
+4     0.3342  0.2522  0.5022  0.4484  0.2944  0.4371
+Mean  0.3338  0.2528  0.5027  0.4495  0.2938  0.4356
+Std   0.0040  0.0056  0.0056  0.0079  0.0032  0.0051
+
+___ Model Evaluation ___
+
+Calculating feature importance
+
+Top feature importance ranking:
+               feature  importance
+0                time0         362
+61              dut_s0         131
+13      vtype_eb_left1         119
+1           eb_left_s0         117
+2       eb_straight_s0         107
+..                 ...         ...
+31  vtype_wb_straight3          10
+26      vtype_wb_left2           9
+32  vtype_wb_straight4           8
+56  vtype_sb_straight4           8
+60     vtype_sb_right4           6
+
+[65 rows x 2 columns]
+
+Analyzing random case with 4 collisions
+Selected scenario: 2479
+Number of collisions: 1
+Predicted collisions: 0.9098792560340592
+
+Running global SHAP analysis...
+
+Calculating global SHAP values...
+Global SHAP analysis took 13.3093 seconds
+
+Analyzing scenario 2479:
+Actual collisions: 1
+Predicted collisions: 0.91
+Analysis took 0.0597 seconds
+
+Top contributing features:
+movement_right <= 0.00: 0.1894
+vtype_wb_right3 <= 0.00: -0.0966
+0.00 < movement_straight <= 1.00: 0.0939
+vtype_eb_left3 <= 0.00: -0.0884
+vtype_eb_left2 <= 0.00: -0.0567
+vtype_eb_straight2 <= 0.00: -0.0551
+sb_right_s0 <= 9.00: 0.0516
+vtype_eb_right3 <= 0.00: 0.0494
+vtype_sb_straight1 <= 0.00: -0.0480
+vtype_wb_left4 <= 0.00: -0.0472
+1.00 < vtype_sb_left2 <= 2.00: 0.0433
+vtype_sb_right1 <= 0.00: 0.0394
+vtype_eb_right4 <= 0.00: -0.0349
+1.00 < vtype_eb_left1 <= 2.00: 0.0333
+1.00 < vtype_eb_left4 <= 2.00: 0.0326
+1.00 < vtype_eb_straight4 <= 2.00: 0.0192
+vtype_nb_straight2 <= 0.00: -0.0184
+vtype_wb_left1 <= 0.00: 0.0172
+1.00 < vtype_eb_right1 <= 2.00: 0.0163
+1.00 < vtype_eb_straight1 <= 2.00: 0.0147
+1.00 < vtype_sb_straight2 <= 2.00: -0.0143
+1.00 < vtype_sb_left1 <= 2.00: 0.0134
+vtype_nb_right3 <= 0.00: 0.0133
+vtype_wb_right2 <= 0.00: -0.0110
+vtype_nb_right2 <= 0.00: -0.0108
+wb_right_s0 > 41.00: -0.0096
+vtype_wb_straight1 <= 0.00: -0.0088
+wb_left_s0 > 40.00: 0.0085
+movement_left <= 0.00: 0.0077
+1.00 < vtype_wb_straight2 <= 2.00: 0.0071
+eb_straight_s0 <= 9.00: 0.0070
+sb_left_s0 > 46.00: 0.0067
+time0 > 76.00: 0.0065
+1.00 < vtype_nb_straight3 <= 2.00: -0.0059
+vtype_eb_right2 <= 0.00: 0.0058
+1.00 < vtype_wb_right1 <= 2.00: -0.0056
+eb_right_s0 > 47.00: -0.0049
+1.00 < vtype_nb_right1 <= 2.00: 0.0048
+vtype_nb_left3 <= 0.00: -0.0046
+sb_straight_s0 > 40.00: 0.0043
+1.00 < vtype_sb_right4 <= 2.00: 0.0039
+vtype_nb_left1 <= 0.00: 0.0039
+1.00 < vtype_nb_left4 <= 2.00: -0.0038
+eb_left_s0 > 48.00: 0.0037
+vtype_sb_left4 <= 0.00: 0.0036
+nb_straight_s0 > 44.00: -0.0036
+nb_right_s0 > 42.00: -0.0030
+dut_s0 > 44.00: 0.0027
+vtype_wb_straight4 <= 0.00: 0.0026
+1.00 < vtype_sb_straight3 <= 2.00: 0.0026
+1.00 < vtype_nb_straight1 <= 2.00: -0.0025
+1.00 < vtype_wb_left2 <= 2.00: 0.0025
+1.00 < vtype_nb_straight4 <= 2.00: -0.0024
+1.00 < vtype_sb_left3 <= 2.00: 0.0022
+vtype_eb_straight3 <= 0.00: 0.0021
+1.00 < vtype_sb_right3 <= 2.00: 0.0012
+1.00 < vtype_wb_straight3 <= 2.00: 0.0012
+wb_straight_s0 > 39.00: 0.0011
+vtype_nb_left2 <= 0.00: -0.0011
+1.00 < vtype_wb_left3 <= 2.00: -0.0010
+1.00 < vtype_wb_right4 <= 2.00: 0.0009
+1.00 < vtype_sb_straight4 <= 2.00: -0.0007
+nb_left_s0 > 43.00: -0.0005
+vtype_nb_right4 <= 0.00: 0.0005
+1.00 < vtype_sb_right2 <= 2.00: 0.0002
+SHAP analysis for scenario 2479 took 0.3104 seconds
+(Analysis: 0.0125s, Plotting: 0.2979s)

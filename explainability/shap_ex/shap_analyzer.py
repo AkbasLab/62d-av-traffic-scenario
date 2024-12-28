@@ -13,7 +13,7 @@ class ShapAnalyzer:
         self.explainer = shap.TreeExplainer(model)
 
     def analyze_global_importance(self, X, output_dir):
-        """Create global SHAP importance plot"""
+        """Create global SHAP importance plots (bar and beeswarm)"""
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
@@ -24,15 +24,21 @@ class ShapAnalyzer:
             X_values = X.values
         else:
             X_values = X
-        shap_values = self.explainer.shap_values(X_values)
 
+        shap_values = self.explainer.shap_values(X_values)
         mean_abs_shap = np.abs(shap_values).mean(0)
         feature_importance = pd.DataFrame({
             'feature': X.columns,
             'importance': mean_abs_shap
         })
         feature_importance = feature_importance.sort_values('importance', ascending=False)
-
+        feature_importance_sorted = feature_importance.sort_values('importance', ascending=False)
+        feature_importance_sorted.to_csv(
+            os.path.join(output_dir, "global_shap.txt"),
+            index=False,
+            sep='\t',
+            float_format='%.4f'
+        )
         plt.figure(figsize=(10, 6))
         shap.summary_plot(
             shap_values,
@@ -40,9 +46,22 @@ class ShapAnalyzer:
             plot_type="bar",
             show=False
         )
-        plt.title("Global SHAP Feature Importance")
+        plt.title("Global SHAP Feature Importance (Bar Plot)")
         plt.tight_layout()
-        plt.savefig(os.path.join(output_dir, "global_shap_waterfall.pdf"),
+        plt.savefig(os.path.join(output_dir, "global_shap_bar.pdf"),
+                    bbox_inches='tight', dpi=300)
+        plt.close()
+
+        plt.figure(figsize=(10, 6))
+        shap.summary_plot(
+            shap_values,
+            X,
+            plot_type="dot", # beeswarm
+            show=False
+        )
+        plt.title("Global SHAP Feature Importance (Beeswarm Plot)")
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, "global_shap_beeswarm.pdf"),
                     bbox_inches='tight', dpi=300)
         plt.close()
 
@@ -61,6 +80,19 @@ class ShapAnalyzer:
             instance = instance.values
         shap_values = self.explainer.shap_values(instance)
         analysis_time = time.perf_counter() - start_analysis
+
+        # Create and save local feature importance rankings
+        feature_importance = pd.DataFrame({
+            'feature': X.columns,
+            'importance': abs(shap_values[0])  # Take absolute values for importance
+        })
+        feature_importance_sorted = feature_importance.sort_values('importance', ascending=False)
+        feature_importance_sorted.to_csv(
+            os.path.join(output_dir, "local_shap.txt"),
+            index=False,
+            sep='\t',
+            float_format='%.4f'
+        )
 
         # time spent plotting
         start_plot = time.perf_counter()
@@ -199,6 +231,19 @@ class ShapAnalyzer:
         shap_values = self.explainer.shap_values(instance)
         analysis_time = time.perf_counter() - start_analysis
 
+        # Create and save local feature importance rankings
+        feature_importance = pd.DataFrame({
+            'feature': X.columns,
+            'importance': abs(shap_values[0])  # Take absolute values for importance
+        })
+        feature_importance_sorted = feature_importance.sort_values('importance', ascending=False)
+        feature_importance_sorted.to_csv(
+            os.path.join(output_dir, "local_shap.txt"),
+            index=False,
+            sep='\t',
+            float_format='%.4f'
+        )
+
         start_plot = time.perf_counter()
         plt.figure()
         shap.waterfall_plot(
@@ -227,7 +272,6 @@ class ShapAnalyzer:
         print(f"SHAP analysis for scenario {scenario_idx} took {analysis_time + plot_time:.4f} seconds")
         print(f"(Analysis: {analysis_time:.4f}s, Plotting: {plot_time:.4f}s)")
 
-
     def analyze_specific_scenario_sidemove(self, X, y, scenario_idx, output_dir, actual_value=None, predicted_value=None):
         """Analyze a specific scenario using SHAP for side move classification"""
         if not os.path.exists(output_dir):
@@ -239,6 +283,19 @@ class ShapAnalyzer:
             instance = instance.values
         shap_values = self.explainer.shap_values(instance)
         analysis_time = time.perf_counter() - start_analysis
+
+        # Create and save local feature importance rankings
+        feature_importance = pd.DataFrame({
+            'feature': X.columns,
+            'importance': abs(shap_values[0])  # Take absolute values for importance
+        })
+        feature_importance_sorted = feature_importance.sort_values('importance', ascending=False)
+        feature_importance_sorted.to_csv(
+            os.path.join(output_dir, "local_shap.txt"),
+            index=False,
+            sep='\t',
+            float_format='%.4f'
+        )
 
         start_plot = time.perf_counter()
         plt.figure()

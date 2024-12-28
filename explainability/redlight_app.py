@@ -112,11 +112,15 @@ def main():
         output_dir=os.path.join(OUTPUT_DIR, "global", "shap")
     )
 
-    print("\nAnalyzing random case where red light was run...")
-    # Find indices where red light was run
-    red_light_positions = np.where(y_test)[0]
+    print("\nAnalyzing random case where red light was run and predicted correctly...")
+    # Find indices where red light was run AND was predicted correctly
+    red_light_positions = []
+    for position in range(len(y_test)):
+        if y_test[X_test.index[position]] and test_pred[position]:  # Both actual and predicted are True
+            red_light_positions.append(position)
+
     if len(red_light_positions) == 0:
-        print("No red light cases found in test set")
+        print("No correctly predicted red light cases found in test set")
         return
 
     # Get random red light case
