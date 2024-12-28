@@ -18,14 +18,44 @@ class EDA:
         # self.compare_targeted_testing()
         # self.stat_summary()
 
-        fn = "out/explainability/side_move/global/lightgbm/lightgbm_global_feature_ranking.txt"
-        self.load_lightgbm_features(fn)        
+        self.lightbm_feature_importance()
         return
     
-    def load_lightgbm_features(self, fn : str):
-        df = pd.read_csv(fn, sep="\t")
-        print(df)
+    def lightbm_feature_importance(self):
+        for tsc in ["num_collisions", "run_red_light", "side_move"]:
+            fn = "out/explainability/%s/global/lightgbm/lightgbm_global_feature_ranking.txt" % tsc
+            pdf_fn = "%s.pdf" % fn.split(".")[0]
+            self.load_and_plot_lightgbm_features(fn)        
+            plt.savefig(pdf_fn, bbox_inches = "tight")
         return
+
+    def load_and_plot_lightgbm_features(self, fn : str):
+        plt.clf()
+
+        df = pd.read_csv(fn, sep="\t")\
+            .sort_values("importance",ascending=False)\
+            .reset_index(drop=True)
+        
+        df["norm"] = df["importance"]/df["importance"].sum()
+
+        df = df.iloc[:10]
+        
+        figure = plt.figure(figsize=(5,4))
+        ax = figure.gca()
+
+        x = df["feature"]
+        width = df["norm"]
+
+        ax.barh(
+            x, width,
+            color="black",
+            zorder=2
+        )
+        ax.invert_yaxis()
+        ax.grid(True,zorder=-1)
+
+        ax.set_xlabel("normalized feature impact on model output")
+        return ax
 
     def stat_summary(self):
         # Collect Data

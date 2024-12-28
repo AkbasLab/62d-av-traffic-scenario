@@ -71,6 +71,8 @@ def main():
     print("\nTraining LightGBM model")
     model = regression.create_model('lightgbm')
 
+    print("here")
+
     if not hasattr(model, 'predict'):
         raise ValueError("Extracted model doesn't have specified prediction method")
 
